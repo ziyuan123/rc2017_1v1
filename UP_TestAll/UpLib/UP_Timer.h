@@ -1,7 +1,7 @@
 /******************************************************************/
-//	Copyright (C), 2011-2012, ±±¾©²©´´ 
-//  Author   	  	: ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2012, åŒ—äº¬åšåˆ› 
+//  Author   	  	: é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2012/08/01
 //  Version   	  : 1.3          
 //  Description   : Transplant to v3.5 function library
@@ -10,18 +10,18 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-//¼ÆÊ±Æ÷Ïà¹Øºê¶¨Òå
+//è®¡æ—¶å™¨ç›¸å…³å®å®šä¹‰
 #define TIMER_CHANNEL0	0
 #define TIMER_CHANNEL1	1
 #define TIMER_CHANNEL2	2
 #define TIMER_CHANNEL3	3
 
-//Ó²¼ş³õÊ¼»¯
-extern void UP_Timer_Init(void);								//¶¨Ê±Æ÷Ïà¹Ø³õÊ¼»¯
-extern void UP_Timer_EnableIT(u32 TimerChannel, u32 Time_us);	//Ê¹ÄÜ¼ÆÊ±Æ÷ÖĞ¶Ï
-extern void UP_Timer_DisableIT(u32 TimerChannel);				//½ûÄÜ¼ÆÊ±Æ÷ÖĞ¶Ï
-extern void UP_Timer_SetHadler(u32 channel,void (*ApplicationAddress)(u32));//ÉèÖÃ¶¨Ê±Æ÷ÖĞ¶ÏÈë¿Úº¯Êı
-extern u32 UP_Timer_GetCount(void);								//»ñÈ¡¼ÆÊ±Æ÷¼ÆÊıÖµ£¨32Î»£©,Ã¿¼ÆÊıÖµ1us
-extern void UP_Timer_CleanCount(void);							//ÇåÁã¼ÆÊ±Æ÷¼ÆÊıÖµ
+//ç¡¬ä»¶åˆå§‹åŒ–
+extern void UP_Timer_Init(void);								//å®šæ—¶å™¨ç›¸å…³åˆå§‹åŒ–
+extern void UP_Timer_EnableIT(u32 TimerChannel, u32 Time_us);	//ä½¿èƒ½è®¡æ—¶å™¨ä¸­æ–­
+extern void UP_Timer_DisableIT(u32 TimerChannel);				//ç¦èƒ½è®¡æ—¶å™¨ä¸­æ–­
+extern void UP_Timer_SetHadler(u32 channel,void (*ApplicationAddress)(u32));//è®¾ç½®å®šæ—¶å™¨ä¸­æ–­å…¥å£å‡½æ•°
+extern u32 UP_Timer_GetCount(void);								//è·å–è®¡æ—¶å™¨è®¡æ•°å€¼ï¼ˆ32ä½ï¼‰,æ¯è®¡æ•°å€¼1us
+extern void UP_Timer_CleanCount(void);							//æ¸…é›¶è®¡æ—¶å™¨è®¡æ•°å€¼
 
 #endif
