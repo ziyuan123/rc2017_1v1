@@ -1,0 +1,14 @@
+//
+// Created by ilalh on 2017/6/12.
+//
+
+#ifndef RC2017_1V1_COMMON_H
+#define RC2017_1V1_COMMON_H
+
+#define DIRECTION_NONE 0x000
+#define DIRECTION_FORWARD 0x001
+#define DIRECTION_BACK 0x010
+#define DIRECTION_LEFT 0x011
+#define DIRECTION_RIGHT 0x100
+
+#endif //RC2017_1V1_COMMON_H

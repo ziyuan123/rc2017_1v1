@@ -1,6 +1,6 @@
 /******************************************************************/
-//	Copyright (C), 2011-2012, ±±¾©²©´´ 
-//  Author   	  : ³ÂÖĞÔª  
+//	Copyright (C), 2011-2012, åŒ—äº¬åšåˆ› 
+//  Author   	  : é™ˆä¸­å…ƒ  
 //  Update Date   : 2011/06/12
 //  Version   	  : 1.2            
 //  Description   :  
@@ -9,17 +9,17 @@
 #ifndef CDS5500_H
 #define CDS5500_H
 
-#define CDS_SEVMODE			0			//¶æ»úÄ£Ê½
-#define CDS_MOTOMODE		1			//µç»úÄ£Ê½
+#define CDS_SEVMODE			0			//èˆµæœºæ¨¡å¼
+#define CDS_MOTOMODE		1			//ç”µæœºæ¨¡å¼
 
-extern void UP_CDS_SetMode(u8 id, u8 mode);					//ÉèÖÃCDSÊı×Ö¶æ»úÄ£Ê½£¬idÎª¶æ»úID
-															//CDS_SEVMODEÎª¶æ»úÄ£Ê½£¬CDS_MOTOMODEÎªµç»úÄ£Ê½
-extern void UP_CDS_SetAngleTimes(u8 id, u16 angle, s16 speed,u8 times);	//ÉèÖÃÊı×Ö¶æ»ú£¨¶æ»úÄ£Ê½ÏÂ£©½Ç¶ÈºÍËÙ¶È
-extern void UP_CDS_SetAngle(u8 id, u16 angle, u16 speed);	//ÉèÖÃÊı×Ö¶æ»ú£¨¶æ»úÄ£Ê½ÏÂ£©½Ç¶ÈºÍËÙ¶È
-															//½Ç¶È0~1023¶ÔÓ¦0~300¡ã£¬ËÙ¶È0~1023
-extern void UP_CDS_SetSpeed(u8 id, s16 speed);				//ÉèÖÃÊı×Ö¶æ»ú£¨µç»úÄ£Ê½ÏÂ£©ËÙ¶È£¬·¶Î§-1023~+1023
+extern void UP_CDS_SetMode(u8 id, u8 mode);					//è®¾ç½®CDSæ•°å­—èˆµæœºæ¨¡å¼ï¼Œidä¸ºèˆµæœºID
+															//CDS_SEVMODEä¸ºèˆµæœºæ¨¡å¼ï¼ŒCDS_MOTOMODEä¸ºç”µæœºæ¨¡å¼
+extern void UP_CDS_SetAngleTimes(u8 id, u16 angle, s16 speed,u8 times);	//è®¾ç½®æ•°å­—èˆµæœºï¼ˆèˆµæœºæ¨¡å¼ä¸‹ï¼‰è§’åº¦å’Œé€Ÿåº¦
+extern void UP_CDS_SetAngle(u8 id, u16 angle, u16 speed);	//è®¾ç½®æ•°å­—èˆµæœºï¼ˆèˆµæœºæ¨¡å¼ä¸‹ï¼‰è§’åº¦å’Œé€Ÿåº¦
+															//è§’åº¦0~1023å¯¹åº”0~300Â°ï¼Œé€Ÿåº¦0~1023
+extern void UP_CDS_SetSpeed(u8 id, s16 speed);				//è®¾ç½®æ•°å­—èˆµæœºï¼ˆç”µæœºæ¨¡å¼ä¸‹ï¼‰é€Ÿåº¦ï¼ŒèŒƒå›´-1023~+1023
 
-extern void UP_CDS_Set4MotoSpeed(u8 id[4], s16 speed[4]);	//Í¬Ê±ÉèÖÃ4Â·Êı×Ö¶æ»úµÄËÙ¶È£¨µç»úÄ£Ê½ÏÂ£©
+extern void UP_CDS_Set4MotoSpeed(u8 id[4], s16 speed[4]);	//åŒæ—¶è®¾ç½®4è·¯æ•°å­—èˆµæœºçš„é€Ÿåº¦ï¼ˆç”µæœºæ¨¡å¼ä¸‹ï¼‰
 
 
 #endif
