@@ -7,7 +7,7 @@
 #include "utils.h"
 #include "common.h"
 
-extern u8 GLOBAL_SENSOR_LIST[4];
+u8 G4S_GRAY_SCALE_SENSOR_LIST[4] = {0, 0, 0, 0};
 
 int G4S_GRAYSCALE_DATA[4] = {0, 0, 0, 0};
 
@@ -24,10 +24,10 @@ const int G4S_SENSOR_DATA[4][G4S_SENSOR_DATA_LENGTH] = {{0},
                                                         {0}};
 
 void G4S_update_gray_scale_sensor() {
-    G4S_GRAYSCALE_DATA[0] = UP_ADC_GetValue(GLOBAL_SENSOR_LIST[0]);
-    G4S_GRAYSCALE_DATA[1] = UP_ADC_GetValue(GLOBAL_SENSOR_LIST[1]);
-    G4S_GRAYSCALE_DATA[2] = UP_ADC_GetValue(GLOBAL_SENSOR_LIST[2]);
-    G4S_GRAYSCALE_DATA[3] = UP_ADC_GetValue(GLOBAL_SENSOR_LIST[3]);
+    G4S_GRAYSCALE_DATA[0] = UP_ADC_GetValue(G4S_GRAY_SCALE_SENSOR_LIST[0]);
+    G4S_GRAYSCALE_DATA[1] = UP_ADC_GetValue(G4S_GRAY_SCALE_SENSOR_LIST[1]);
+    G4S_GRAYSCALE_DATA[2] = UP_ADC_GetValue(G4S_GRAY_SCALE_SENSOR_LIST[2]);
+    G4S_GRAYSCALE_DATA[3] = UP_ADC_GetValue(G4S_GRAY_SCALE_SENSOR_LIST[3]);
 }
 
 int G4S_Direction_Data[4] = {0};
