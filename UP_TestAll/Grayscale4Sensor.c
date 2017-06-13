@@ -7,7 +7,7 @@
 #include "utils.h"
 #include "common.h"
 
-extern u8 GLOBAL_SENSOR_LIST[];
+extern u8 GLOBAL_SENSOR_LIST[4];
 
 int G4S_GRAYSCALE_DATA[4] = {0, 0, 0, 0};
 
