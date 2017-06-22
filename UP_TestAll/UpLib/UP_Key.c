@@ -1,11 +1,11 @@
 /******************************************************************/
-//	Copyright (C), 2011-2013, ±±¾©²©´´ 
-//  Author   	  	: ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2013, åŒ—äº¬åšåˆ› 
+//  Author   	  	: é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2012/08/01
 //  Version   	  : 1.3          
 //  Description   : Transplant to v3.5 function library
-//  Reviser				: ÇÇäìéª
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2013/07/18
 //  Version   	  : 1.3.1         
 //  Description   : Change GPIO configuration for keys.
@@ -14,32 +14,32 @@
 #include "UP_Key.h" 
 
 /*************************************************
-  º¯ÊıÃû³Æ: UP_Key_Init
-  º¯Êı¹¦ÄÜ: °´¼ü³õÊ¼»¯
-  ±»±¾º¯Êıµ÷ÓÃµÄº¯Êı: ÎŞ        
-  µ÷ÓÃ±¾º¯ÊıµÄº¯Êı: ÎŞ    
-  ÊäÈë²ÎÊıËµÃ÷: ÎŞ
-  Êä³ö²ÎÊıËµÃ÷: ÎŞ       
-  º¯Êı·µ»ØÖµ: ÎŞ
-  ÆäËüËµÃ÷:ÎŞ        
+  å‡½æ•°åç§°: UP_Key_Init
+  å‡½æ•°åŠŸèƒ½: æŒ‰é”®åˆå§‹åŒ–
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ—         
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ—     
+  è¾“å…¥å‚æ•°è¯´æ˜: æ— 
+  è¾“å‡ºå‚æ•°è¯´æ˜: æ—        
+  å‡½æ•°è¿”å›å€¼: æ— 
+  å…¶å®ƒè¯´æ˜:æ—         
 *************************************************/
 void UP_Key_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;											//¶¨ÒåGPIO³õÊ¼»¯½á¹¹Ìå±äÁ¿
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);			//Ê¹ÄÜGPIODÊ±ÖÓ
+	GPIO_InitTypeDef GPIO_InitStructure;											//å®šä¹‰GPIOåˆå§‹åŒ–ç»“æ„ä½“å˜é‡
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);			//ä½¿èƒ½GPIODæ—¶é’Ÿ
 	
-	//PD12~15°´¼üÊäÈë
+	//PD12~15æŒ‰é”®è¾“å…¥
 	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_12|GPIO_Pin_13|
-																 GPIO_Pin_14|GPIO_Pin_15;		//Ñ¡ÔñPD12~PD15
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;							//Ñ¡ÔñÉÏÀ­ÊäÈëÄ£Ê½
-	GPIO_Init(GPIOD, &GPIO_InitStructure);										//ÅäÖÃPD12~15ÎªÉÏÀ­ÊäÈë
+																 GPIO_Pin_14|GPIO_Pin_15;		//é€‰æ‹©PD12~PD15
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;							//é€‰æ‹©ä¸Šæ‹‰è¾“å…¥æ¨¡å¼
+	GPIO_Init(GPIOD, &GPIO_InitStructure);										//é…ç½®PD12~15ä¸ºä¸Šæ‹‰è¾“å…¥
 
-	//USBÖĞ¶ÏÈë¿Ú
-	GPIO_ResetBits(GPIOE, GPIO_Pin_2);												//Çå³ıPE2¶Ë¿Ú
-	/* E2-DEV¿ØÖÆ¿Ú */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);			//Ê¹ÄÜGPIOEÊ±ÖÓ
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;									//Ñ¡ÔñPE2
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;					//ÉèÖÃ×î¸ßÊä³öËÙÂÊÎª2MHz
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;					//Ñ¡ÔñÍÆÍìÊä³öÄ£Ê½
-	GPIO_Init(GPIOE, &GPIO_InitStructure);										//ÅäÖÃPE2ÎªÍÆÍìÊä³ö
+	//USBä¸­æ–­å…¥å£
+	GPIO_ResetBits(GPIOE, GPIO_Pin_2);												//æ¸…é™¤PE2ç«¯å£
+	/* E2-DEVæ§åˆ¶å£ */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);			//ä½¿èƒ½GPIOEæ—¶é’Ÿ
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;									//é€‰æ‹©PE2
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;					//è®¾ç½®æœ€é«˜è¾“å‡ºé€Ÿç‡ä¸º2MHz
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;					//é€‰æ‹©æ¨æŒ½è¾“å‡ºæ¨¡å¼
+	GPIO_Init(GPIOE, &GPIO_InitStructure);										//é…ç½®PE2ä¸ºæ¨æŒ½è¾“å‡º
 }

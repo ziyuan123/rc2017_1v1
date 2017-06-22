@@ -3,9 +3,11 @@
 #include "Grayscale4Sensor.h"
 #include "ServoMove.h"
 
+
 #ifdef DEBUG_ON
 //then the program is in debug mode
 #endif
+
 
 u8 GLOBAL_SENSOR_LIST[4] = {1, 2, 3, 4};
 extern u8 G4S_GRAY_SCALE_SENSOR_LIST[4];
@@ -58,5 +60,7 @@ int main(void) {
 //            default:
 //                SM_spin(DIRECTION_LEFT, 512);
         }
+
+        UP_delay_ms(100);
     }
 }

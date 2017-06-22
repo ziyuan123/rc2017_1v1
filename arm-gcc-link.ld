@@ -60,5 +60,7 @@ SECTIONS
     } > ram
        
     . = ALIGN(4); 
-    _end = . ; 
-} 
+    _end = . ;
+
+    PROVIDE(__HEAP_START = _end );
+} 
