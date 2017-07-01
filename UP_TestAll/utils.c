@@ -4,10 +4,10 @@
 
 #include "utils.h"
 
-int find_nearest_in_array(int value, const int *array, int start, int end) {
+int find_nearest_in_array_descend(int value, const int *array, int start, int end) {
     int i;
     for (i = start; i < end; i++) {
-        if (value < array[i])
+        if (value > array[i])
             break;
     }
     if (i > start)

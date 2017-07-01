@@ -14,4 +14,6 @@ void G4S_update_gray_scale_sensor();
 
 int G4S_direction_to_centre();
 
+extern int G4SNextDirection;
+
 #endif //RC2017_1V1_GRAYSCALE4SENSOR_H
