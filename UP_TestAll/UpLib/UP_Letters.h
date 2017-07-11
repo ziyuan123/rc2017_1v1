@@ -1,7 +1,7 @@
 /******************************************************************/
-//	Copyright (C), 2011-2012, ±±¾©²©´´ 
-//  Author   	  	: ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2012, åŒ—äº¬åšåˆ› 
+//  Author   	  	: é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2012/08/01
 //  Version   	  : 1.3          
 //  Description   : Transplant to v3.5 function library
@@ -9,7 +9,7 @@
 #ifndef __LETTERS_H_
 #define __LETTERS_H_
 
-//ASCIIÂëµÄ32~122
+//ASCIIç çš„32~122
 const unsigned char LCD_Letters[1456] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 0x00,0x00,0x00,0xf8,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x33,0x30,0x00,0x00,0x00,
