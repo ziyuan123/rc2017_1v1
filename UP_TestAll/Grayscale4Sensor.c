@@ -8,6 +8,8 @@
 #include "common.h"
 #include "ServoMove.h"
 
+int G4S_Enable = DISABLE;
+
 int G4S_next_direction = DIRECTION_NONE;
 
 u8 G4S_GrayScaleSensorList[4] = {0, 0, 0, 0};
@@ -28,6 +30,8 @@ const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700}
 int motor_speed = 500;
 
 void G4S_UpdateGrayScaleSensor(void) {
+    if (G4S_Enable == DISABLE)
+        return;
     G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
     G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
     G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);

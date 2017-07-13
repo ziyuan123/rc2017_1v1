@@ -2,6 +2,7 @@
 #include "common.h"
 #include "Grayscale4Sensor.h"
 #include "ServoMove.h"
+#include "CheckState.h"
 
 
 #ifdef DEBUG_ON
@@ -10,7 +11,6 @@
 
 
 u8 GLOBAL_SENSOR_LIST[4] = {0, 1, 2, 3};
-extern u8 G4S_GrayScaleSensorList[4];
 
 void init() {
     G4S_GrayScaleSensorList[0] = GLOBAL_SENSOR_LIST[0];
@@ -28,12 +28,32 @@ int main(void) {
 
     UP_Timer_EnableIT(0, 5000);//5ms
     UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);
+    UP_Timer_EnableIT(1, 5000);//5ms
+    UP_Timer_SetHadler(1, CS_CheckState);
     UP_System_Init();
     UP_delay_ms(100);
 
     init();
 
-    while (1) {
+    G4S_Enable = ENABLE;
+    CS_Enable = ENABLE;
 
+    while (1) {
+        switch (CS_State) {
+            case STATE_ON_STAGE:
+                break;
+            case STATE_UNDER_STAGE:
+                break;
+            case STATE_ENEMY_FORWARD:
+                break;
+            case STATE_ENEMY_BACKWARD:
+                break;
+            case STATE_ENEMY_LEFT:
+                break;
+            case STATE_ENEMY_RIGHT:
+                break;
+            default:
+                break;
+        }
     }
 }
