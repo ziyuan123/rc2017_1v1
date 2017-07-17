@@ -17,6 +17,10 @@ void init() {
     G4S_GrayScaleSensorList[1] = GLOBAL_SENSOR_LIST[1];
     G4S_GrayScaleSensorList[2] = GLOBAL_SENSOR_LIST[2];
     G4S_GrayScaleSensorList[3] = GLOBAL_SENSOR_LIST[3];
+    CS_IRSensorList[0] = GLOBAL_SENSOR_LIST[4];
+    CS_IRSensorList[1] = GLOBAL_SENSOR_LIST[5];
+    CS_IRSensorList[2] = GLOBAL_SENSOR_LIST[6];
+    CS_IRSensorList[3] = GLOBAL_SENSOR_LIST[7];
     SM_Init();
 }
 
@@ -35,32 +39,35 @@ int main(void) {
 
     init();
 
-    G4S_Enable = ENABLE;
-    CS_Enable = DISABLE;
+    G4S_Enable = DISABLE;
+    CS_Enable = ENABLE;
+
+    UP_LCD_ClearScreen();
 
     while (1) {
         switch (CS_State) {
             case STATE_ON_STAGE:
-                UP_LCD_ShowString(0, 0, "OS");
+                UP_Bluetooth_Puts("OS");
                 break;
             case STATE_UNDER_STAGE:
-                UP_LCD_ShowString(0, 0, "US");
+                UP_Bluetooth_Puts("US");
                 break;
             case STATE_ENEMY_FORWARD:
-                UP_LCD_ShowString(0, 0, "EF");
+                UP_Bluetooth_Puts("EF");
                 break;
             case STATE_ENEMY_BACKWARD:
-                UP_LCD_ShowString(0, 0, "EB");
+                UP_Bluetooth_Puts("EB");
                 break;
             case STATE_ENEMY_LEFT:
-                UP_LCD_ShowString(0, 0, "EL");
+                UP_Bluetooth_Puts("EL");
                 break;
             case STATE_ENEMY_RIGHT:
-                UP_LCD_ShowString(0, 0, "ER");
+                UP_Bluetooth_Puts("ER");
                 break;
             default:
-                UP_LCD_ShowString(0, 0, "NO");
+                UP_Bluetooth_Puts("NO");
                 break;
         }
+        UP_delay_ms(500);
     }
 }

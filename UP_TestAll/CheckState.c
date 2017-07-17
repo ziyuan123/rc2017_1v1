@@ -20,12 +20,12 @@ void CS_CheckState() {
         CS_IRSensorData[i] = UP_ADC_GetIO(CS_IRSensorList[i]);
     }
 
-    if ((CS_IRSensorData[0] && CS_IRSensorData[1]) || (CS_IRSensorData[2] && CS_IRSensorData[3])) {
+    if ((CS_IRSensorData[0] == 0 && CS_IRSensorData[1] == 0) || (CS_IRSensorData[2] == 0 && CS_IRSensorData[3] == 0)) {
         CS_State = STATE_UNDER_STAGE;
         return;
     }
     for (i = 0; i < 4; i++) {
-        if (CS_IRSensorData[i] == 1) {
+        if (CS_IRSensorData[i] == 0) {
             CS_State = i + 1;
             return;
         }
