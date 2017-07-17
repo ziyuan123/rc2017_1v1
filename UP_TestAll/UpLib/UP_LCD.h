@@ -1,6 +1,6 @@
 /******************************************************************/
-//	Copyright (C), 2011-2013, ±±æ©≤©¥¥ 
-//  Author   	  	: ««‰ÏÈ™  
+//	Copyright (C), 2011-2013, Âåó‰∫¨ÂçöÂàõ 
+//  Author   	  	: ‰πîÊΩáÊ•†  
 //  Update Date   : 2013/07/12
 //  Version   	  : 1.3          
 //  Description   : Modification for new LCD
