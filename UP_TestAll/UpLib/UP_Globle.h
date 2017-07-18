@@ -51,8 +51,8 @@ extern volatile u32 g_SysTickTimer;			//1ms��ȷϵͳʱ�Ӽ�ʱ�����
 //���ȫ�ֺ�������	
 extern void UP_delay_us(u32 us);		//��usΪ��λ��ʱ
 extern void UP_delay_ms(u32 ms);		//��msΪ��λ��ʱ
-extern u32 abs(s32 i);							//����������ֵ
-extern double fabs(double i);				//�󸡵�������ֵ
+//extern u32 abs(s32 i);							//����������ֵ
+//extern double fabs(double i);				//�󸡵�������ֵ
 
 #endif
 

@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "common.h"
 #include "ServoMove.h"
+#include "stdlib.h"
 
 int G4S_Enable = DISABLE;
 
@@ -29,9 +30,10 @@ const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700}
                                                         {3100, 3000, 2680, 2380}};
 int motor_speed = 500;
 
+int update_count = 0;
+
 void G4S_UpdateGrayScaleSensor(void) {
-    if (G4S_Enable == DISABLE)
-        return;
+
     G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
     G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
     G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);
@@ -39,10 +41,41 @@ void G4S_UpdateGrayScaleSensor(void) {
 
     G4S_next_direction = G4S_Direction2Centre();
 
+    if (update_count % 100 == 0)
+        srand(G4S_gray_scale_origin_data[0]);
+    update_count++;
+    update_count %= 10000;
+
+    if (G4S_Enable == DISABLE)
+        return;
+
     if (G4S_next_direction == DIRECTION_NONE) {
-        SM_Move(DIRECTION_FORWARD, motor_speed);
+        switch (rand() % 10) {
+            case 0:
+            case 1:
+            case 2:
+                SM_Move(DIRECTION_FORWARD, motor_speed);
+                break;
+            case 3:
+            case 4:
+            case 5:
+                SM_Move(DIRECTION_BACK, motor_speed);
+                break;
+            case 6:
+            case 7:
+                SM_Spin(DIRECTION_LEFT, motor_speed);
+                break;
+            case 8:
+            case 9:
+                SM_Spin(DIRECTION_RIGHT, motor_speed);
+                break;
+            default:
+                SM_Move(DIRECTION_FORWARD, motor_speed);
+                break;
+        }
         return;
     }
+
     if (G4S_next_direction & DIRECTION_LEFT) {
         SM_Spin(DIRECTION_LEFT, motor_speed);
     } else if (G4S_next_direction & DIRECTION_RIGHT) {
