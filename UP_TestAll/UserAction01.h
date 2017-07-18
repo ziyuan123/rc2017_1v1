@@ -15,4 +15,10 @@ void UA01_BackArmUp();
 
 void UA01_BackArmDown();
 
+void UA01_PreAction();
+
+void UA01_GetOnStage(int direction);
+
+int UA01_FindStage();
+
 #endif //RC2017_1V1_USERACTION01_H

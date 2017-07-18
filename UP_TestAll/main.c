@@ -3,6 +3,7 @@
 #include "Grayscale4Sensor.h"
 #include "ServoMove.h"
 #include "CheckState.h"
+#include "UserAction01.h"
 
 
 #ifdef DEBUG_ON
@@ -22,6 +23,7 @@ void init() {
     CS_IRSensorList[2] = GLOBAL_SENSOR_LIST[6];
     CS_IRSensorList[3] = GLOBAL_SENSOR_LIST[7];
     SM_Init();
+    UA01_Init();
 }
 
 int main(void) {
@@ -39,33 +41,45 @@ int main(void) {
 
     init();
 
-    G4S_Enable = DISABLE;
+    G4S_Enable = ENABLE;
     CS_Enable = ENABLE;
 
-    UP_LCD_ClearScreen();
-
+    int under_stage_count = 0;
     while (1) {
+        if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE && CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE) {
+            under_stage_count = 0;
+            G4S_Enable = ENABLE;
+        }
         switch (CS_State) {
             case STATE_ON_STAGE:
-                UP_Bluetooth_Puts("OS");
+                UP_Bluetooth_Puts("OS\n");
                 break;
-            case STATE_UNDER_STAGE:
-                UP_Bluetooth_Puts("US");
+            case STATE_UNDER_STAGE_FACE_TO_STAGE:
+            case STATE_UNDER_STAGE_FACE_NOT_TO_STAGE:
+                G4S_Enable = DISABLE;
+                UP_Bluetooth_Puts("US\n");
+                under_stage_count++;
+                if (under_stage_count > 4) {
+                    UP_Bluetooth_Puts("get on stage\n");
+                    G4S_Enable = DISABLE;
+                    under_stage_count = 0;
+                    UA01_GetOnStage(UA01_FindStage());
+                }
                 break;
             case STATE_ENEMY_FORWARD:
-                UP_Bluetooth_Puts("EF");
+                UP_Bluetooth_Puts("EF\n");
                 break;
             case STATE_ENEMY_BACKWARD:
-                UP_Bluetooth_Puts("EB");
+                UP_Bluetooth_Puts("EB\n");
                 break;
             case STATE_ENEMY_LEFT:
-                UP_Bluetooth_Puts("EL");
+                UP_Bluetooth_Puts("EL\n");
                 break;
             case STATE_ENEMY_RIGHT:
-                UP_Bluetooth_Puts("ER");
+                UP_Bluetooth_Puts("ER\n");
                 break;
             default:
-                UP_Bluetooth_Puts("NO");
+                UP_Bluetooth_Puts("NO\n");
                 break;
         }
         UP_delay_ms(500);

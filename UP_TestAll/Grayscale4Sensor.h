@@ -15,6 +15,10 @@ extern int G4S_Enable;
 
 extern u8 G4S_GrayScaleSensorList[4];
 
+extern int G4S_gray_scale_origin_data[4];
+
+extern int G4S_direction_data[4];
+
 void G4S_UpdateGrayScaleSensor();
 
 int G4S_Direction2Centre();

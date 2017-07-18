@@ -17,6 +17,8 @@ u8 G4S_GrayScaleSensorList[4] = {0, 0, 0, 0};
 
 int G4S_gray_scale_origin_data[4] = {0, 0, 0, 0};
 
+int G4S_direction_data[4] = {0};
+
 #define G4S_SENSOR_DATA_LENGTH 4
 /*
  * 0->forward
@@ -86,8 +88,6 @@ void G4S_UpdateGrayScaleSensor(void) {
         SM_Move(DIRECTION_BACK, MOTOR_SPEED);
     }
 }
-
-int G4S_direction_data[4] = {0};
 
 int G4S_Direction2Centre() {
     int i, x = 0, y = 0, result = DIRECTION_NONE;
