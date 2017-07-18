@@ -41,6 +41,10 @@ int main(void) {
 
     init();
 
+    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0));
+
+    UA01_GetOnStage(DIRECTION_FORWARD);
+
     G4S_Enable = ENABLE;
     CS_Enable = ENABLE;
 
