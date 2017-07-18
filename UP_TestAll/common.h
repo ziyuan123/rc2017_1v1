@@ -23,4 +23,6 @@
 #define STATE_ENEMY_LEFT 3
 #define STATE_ENEMY_RIGHT 4
 
+#define MOTOR_SPEED 500
+
 #endif //RC2017_1V1_COMMON_H

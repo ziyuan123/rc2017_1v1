@@ -28,7 +28,6 @@ const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700}
                                                         {3150, 3030, 2720, 2450},
                                                         {3150, 3050, 2720, 2350},
                                                         {3100, 3000, 2680, 2380}};
-int motor_speed = 500;
 
 int update_count = 0;
 
@@ -54,37 +53,37 @@ void G4S_UpdateGrayScaleSensor(void) {
             case 0:
             case 1:
             case 2:
-                SM_Move(DIRECTION_FORWARD, motor_speed);
+                SM_Move(DIRECTION_FORWARD, MOTOR_SPEED);
                 break;
             case 3:
             case 4:
             case 5:
-                SM_Move(DIRECTION_BACK, motor_speed);
+                SM_Move(DIRECTION_BACK, MOTOR_SPEED);
                 break;
             case 6:
             case 7:
-                SM_Spin(DIRECTION_LEFT, motor_speed);
+                SM_Spin(DIRECTION_LEFT, MOTOR_SPEED);
                 break;
             case 8:
             case 9:
-                SM_Spin(DIRECTION_RIGHT, motor_speed);
+                SM_Spin(DIRECTION_RIGHT, MOTOR_SPEED);
                 break;
             default:
-                SM_Move(DIRECTION_FORWARD, motor_speed);
+                SM_Move(DIRECTION_FORWARD, MOTOR_SPEED);
                 break;
         }
         return;
     }
 
     if (G4S_next_direction & DIRECTION_LEFT) {
-        SM_Spin(DIRECTION_LEFT, motor_speed);
+        SM_Spin(DIRECTION_LEFT, MOTOR_SPEED);
     } else if (G4S_next_direction & DIRECTION_RIGHT) {
-        SM_Spin(DIRECTION_RIGHT, motor_speed);
+        SM_Spin(DIRECTION_RIGHT, MOTOR_SPEED);
     }
     if (G4S_next_direction & DIRECTION_FORWARD) {
-        SM_Move(DIRECTION_FORWARD, motor_speed);
+        SM_Move(DIRECTION_FORWARD, MOTOR_SPEED);
     } else if (G4S_next_direction & DIRECTION_BACK) {
-        SM_Move(DIRECTION_BACK, motor_speed);
+        SM_Move(DIRECTION_BACK, MOTOR_SPEED);
     }
 }
 
