@@ -11,7 +11,9 @@
 #define G4S_GRAY_SCALE_SENSOR_LEFT 2
 #define G4S_GRAY_SCALE_SENSOR_RIGHT 3
 
-extern int G4S_Enable;
+//extern int G4S_Enable;
+
+void G4S_enable(int enable);
 
 extern u8 G4S_GrayScaleSensorList[4];
 

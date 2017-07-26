@@ -12,6 +12,15 @@ int CS_Enable = DISABLE;
 
 int CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
 
+void CS_enable(int enable) {
+    if (enable == ENABLE) {
+        CS_Enable = ENABLE;
+    } else {
+        CS_Enable = DISABLE;
+        CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
+    }
+}
+
 void CS_CheckState() {
     if (CS_Enable == DISABLE)
         return;

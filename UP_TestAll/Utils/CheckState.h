@@ -10,7 +10,10 @@
 extern u8 CS_IRSensorList[4];
 
 extern int CS_State;
-extern int CS_Enable;
+
+//extern int CS_Enable;
+
+void CS_enable(int enable);
 
 void CS_CheckState();
 

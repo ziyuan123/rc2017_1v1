@@ -8,6 +8,7 @@
 #include "common.h"
 #include "ServoMove.h"
 #include "stdlib.h"
+#include "CheckState.h"
 
 int G4S_Enable = DISABLE;
 
@@ -33,12 +34,25 @@ const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700}
 
 int update_count = 0;
 
-void G4S_UpdateGrayScaleSensor(void) {
 
-    G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
-    G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
-    G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);
-    G4S_gray_scale_origin_data[3] = UP_ADC_GetValue(G4S_GrayScaleSensorList[3]);
+void G4S_enable(int enable) {
+    if (enable == ENABLE) {
+        G4S_Enable = ENABLE;
+    } else {
+        G4S_Enable = DISABLE;
+        G4S_next_direction = DIRECTION_NONE;
+    }
+}
+
+void G4S_UpdateGrayScaleSensor(void) {
+    int i = 0, attack = 0;
+    for (i = 0; i < 4; i++) {
+        G4S_gray_scale_origin_data[i] = UP_ADC_GetValue(G4S_GrayScaleSensorList[i]);
+    }
+//    G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
+//    G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
+//    G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);
+//    G4S_gray_scale_origin_data[3] = UP_ADC_GetValue(G4S_GrayScaleSensorList[3]);
 
     G4S_next_direction = G4S_Direction2Centre();
 
@@ -49,6 +63,18 @@ void G4S_UpdateGrayScaleSensor(void) {
 
     if (G4S_Enable == DISABLE)
         return;
+
+    if (CS_State == STATE_ENEMY_FORWARD || CS_State == STATE_ENEMY_BACKWARD) {
+        attack = 1;
+        for (i = 0; i < 4; i++) {
+            if (G4S_gray_scale_origin_data[i] > 2) {
+                attack = 0;
+                break;
+            }
+        }
+        if (attack)
+            return;
+    }
 
     if (G4S_next_direction == DIRECTION_NONE) {
         switch (rand() % 10) {
@@ -98,8 +124,10 @@ int G4S_Direction2Centre() {
                                                               G4S_SENSOR_DATA_LENGTH);
     }
 
-    y = G4S_direction_data[1] - G4S_direction_data[0];//backward - forward
-    x = G4S_direction_data[3] - G4S_direction_data[2];//right - left
+    y = G4S_direction_data[G4S_GRAY_SCALE_SENSOR_BACKWARD] -
+        G4S_direction_data[G4S_GRAY_SCALE_SENSOR_FORWARD];//backward - forward
+    x = G4S_direction_data[G4S_GRAY_SCALE_SENSOR_RIGHT] -
+        G4S_direction_data[G4S_GRAY_SCALE_SENSOR_LEFT];//right - left
 
     if (x == 0 && y == 0) {
         return result;
