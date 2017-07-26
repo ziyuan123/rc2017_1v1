@@ -30,6 +30,8 @@ endif()
 add_executable(${PROJECT_NAME}_gomi.elf ${USER_GOMI_MAIN_SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}_gomi.elf UPLIB USERLIB)
 
+
+#gomi target
 set(HEX_FILE ${PROJECT_NAME}_gomi.hex)
 set(BIN_FILE ${PROJECT_NAME}_gomi.bin)
 add_custom_command(TARGET ${PROJECT_NAME}_gomi.elf POST_BUILD
@@ -40,6 +42,7 @@ add_custom_command(TARGET ${PROJECT_NAME}_gomi.elf POST_BUILD
 add_executable(${PROJECT_NAME}_hgw.elf ${USER_HGW_MAIN_SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}_hgw.elf UPLIB USERLIB)
 
+#hgw target
 set(HEX_FILE ${PROJECT_NAME}_hgw.hex)
 set(BIN_FILE ${PROJECT_NAME}_hgw.bin)
 add_custom_command(TARGET ${PROJECT_NAME}_hgw.elf POST_BUILD
@@ -50,6 +53,7 @@ add_custom_command(TARGET ${PROJECT_NAME}_hgw.elf POST_BUILD
 add_executable(${PROJECT_NAME}_czy.elf ${USER_CZY_MAIN_SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}_czy.elf UPLIB USERLIB)
 
+#czy target
 set(HEX_FILE ${PROJECT_NAME}_czy.hex)
 set(BIN_FILE ${PROJECT_NAME}_czy.bin)
 add_custom_command(TARGET ${PROJECT_NAME}_czy.elf POST_BUILD
