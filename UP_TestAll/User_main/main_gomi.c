@@ -1,9 +1,9 @@
 #include "UpLib/UP_System.h"
 #include "common.h"
-#include "Grayscale4Sensor.h"
-#include "ServoMove.h"
-#include "CheckState.h"
-#include "UserAction01.h"
+#include "Utils/Grayscale4Sensor.h"
+#include "Utils/ServoMove.h"
+#include "Utils/CheckState.h"
+#include "Utils/UserAction01.h"
 
 
 #ifdef DEBUG_ON
