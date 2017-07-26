@@ -45,42 +45,47 @@ int main(void) {
 
     UA01_GetOnStage(DIRECTION_FORWARD);
 
-    G4S_Enable = ENABLE;
-    CS_Enable = ENABLE;
+    G4S_enable(ENABLE);
+    CS_enable(ENABLE);
 
     int under_stage_count = 0;
     while (1) {
         if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE && CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE) {
             under_stage_count = 0;
-            G4S_Enable = ENABLE;
+            G4S_enable(ENABLE);
         }
         switch (CS_State) {
             case STATE_ON_STAGE:
                 UP_Bluetooth_Puts("OS\n");
+                UA01_PreAttack();
                 break;
             case STATE_UNDER_STAGE_FACE_TO_STAGE:
             case STATE_UNDER_STAGE_FACE_NOT_TO_STAGE:
-                G4S_Enable = DISABLE;
+                G4S_enable(DISABLE);
                 UP_Bluetooth_Puts("US\n");
                 under_stage_count++;
                 if (under_stage_count > 4) {
                     UP_Bluetooth_Puts("get on stage\n");
-                    G4S_Enable = DISABLE;
+                    G4S_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_GetOnStage(UA01_FindStage());
                 }
                 break;
             case STATE_ENEMY_FORWARD:
                 UP_Bluetooth_Puts("EF\n");
+                UA01_Attack(DIRECTION_FORWARD);
                 break;
             case STATE_ENEMY_BACKWARD:
                 UP_Bluetooth_Puts("EB\n");
+                UA01_Attack(DIRECTION_BACK);
                 break;
             case STATE_ENEMY_LEFT:
                 UP_Bluetooth_Puts("EL\n");
+                SM_Spin(DIRECTION_LEFT, 400);
                 break;
             case STATE_ENEMY_RIGHT:
                 UP_Bluetooth_Puts("ER\n");
+                SM_Spin(DIRECTION_RIGHT, 400);
                 break;
             default:
                 UP_Bluetooth_Puts("NO\n");

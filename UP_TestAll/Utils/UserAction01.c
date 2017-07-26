@@ -115,5 +115,12 @@ int UA01_FindStage() {
         SM_Spin(DIRECTION_LEFT, 300);
         UP_delay_ms(400);
     }
+}
+
+void UA01_PreAttack() {
+
+}
+
+void UA01_Attack(int direction) {
 
 }

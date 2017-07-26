@@ -21,4 +21,8 @@ void UA01_GetOnStage(int direction);
 
 int UA01_FindStage();
 
+void UA01_PreAttack();
+
+void UA01_Attack(int direction);
+
 #endif //RC2017_1V1_USERACTION01_H
