@@ -13,6 +13,6 @@
  * start : index of start
  * end : index of end
  */
-int find_nearest_in_array_descend(int value, const int *array, int start, int end);
+int find_nearest_in_array_descend(int value, const int *array, int start, int end);//在数组中找到最近值（四灰度调用）
 
 #endif //RC2017_1V1_UTILS_H

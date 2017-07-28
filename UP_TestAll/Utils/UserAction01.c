@@ -10,10 +10,12 @@
 #include "CheckState.h"
 #include "stdlib.h"
 
-u8 UA01_arm_servo_list[4] = {3, 4, 5, 6};
-u8 UA01_hand_motor_list[4] = {7, 8, 9, 10};
-s16 UA01_hand_motor_speed[4] = {0, 0, 0, 0};
+u8 UA01_arm_servo_list[4] = {3, 4, 5, 6};//电机编号
+u8 UA01_hand_motor_list[4] = {7, 8, 9, 10};//手臂编号
+s16 UA01_hand_motor_speed[4] = {0, 0, 0, 0};//速度
 
+
+//初始化
 void UA01_Init() {
     int i = 0;
     for (i = 0; i < 4; i++) {
@@ -22,26 +24,32 @@ void UA01_Init() {
     }
 }
 
+//前手臂up
 void UA01_FrontArmUp() {
     UP_CDS_SetAngle(UA01_arm_servo_list[0], 250, 512);
     UP_CDS_SetAngle(UA01_arm_servo_list[1], 750, 512);
 }
 
+//前手臂down
 void UA01_FrontArmDown() {
     UP_CDS_SetAngle(UA01_arm_servo_list[0], 750, 512);
     UP_CDS_SetAngle(UA01_arm_servo_list[1], 250, 512);
 }
 
+//后手臂up
 void UA01_BackArmUp() {
     UP_CDS_SetAngle(UA01_arm_servo_list[2], 750, 512);
     UP_CDS_SetAngle(UA01_arm_servo_list[3], 250, 512);
 }
 
+//后手臂down
 void UA01_BackArmDown() {
     UP_CDS_SetAngle(UA01_arm_servo_list[2], 250, 512);
     UP_CDS_SetAngle(UA01_arm_servo_list[3], 750, 512);
 }
 
+
+//动作
 void UA01_PreAction() {
     int i = 0;
     for (i = 0; i < 4; i++) {
@@ -52,6 +60,7 @@ void UA01_PreAction() {
     UA01_BackArmUp();
 }
 
+//上台
 void UA01_GetOnStage(int direction) {
     UA01_PreAction();
     if (direction == DIRECTION_FORWARD) {
@@ -59,15 +68,15 @@ void UA01_GetOnStage(int direction) {
         UA01_hand_motor_speed[1] = -500;
         UA01_hand_motor_speed[2] = 500;
         UA01_hand_motor_speed[3] = -500;
-        UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
-        SM_Move(DIRECTION_FORWARD, 500);
+        UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);//四电机速度初始化设置
+        SM_Move(DIRECTION_FORWARD, 500);    //500速度向前
     } else {
         UA01_hand_motor_speed[0] = -500;
         UA01_hand_motor_speed[1] = 500;
         UA01_hand_motor_speed[2] = -500;
         UA01_hand_motor_speed[3] = 500;
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
-        SM_Move(DIRECTION_BACK, 500);
+        SM_Move(DIRECTION_BACK, 500);   //500速度向后
     }
     UP_delay_ms(100);
     if (direction == DIRECTION_FORWARD) UA01_FrontArmDown();
@@ -83,6 +92,7 @@ void UA01_GetOnStage(int direction) {
     UP_delay_ms(400);
 }
 
+//找寻擂台
 int UA01_FindStage() {
     int stable_count = 0;
 
@@ -117,10 +127,13 @@ int UA01_FindStage() {
     }
 }
 
+
+//攻击
 void UA01_PreAttack() {
 
 }
 
+//攻击
 void UA01_Attack(int direction) {
 
 }
