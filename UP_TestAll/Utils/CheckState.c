@@ -5,13 +5,15 @@
 #include "CheckState.h"
 #include "common.h"
 
-u8 CS_IRSensorList[4];
-u8 CS_IRSensorData[4];
+u8 CS_IRSensorList[4];  //四灰度表单
+u8 CS_IRSensorData[4];  //四灰度数据
 
 int CS_Enable = DISABLE;
 
 int CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
 
+
+//使能
 void CS_enable(int enable) {
     if (enable == ENABLE) {
         CS_Enable = ENABLE;
@@ -21,6 +23,8 @@ void CS_enable(int enable) {
     }
 }
 
+
+//
 void CS_CheckState() {
     if (CS_Enable == DISABLE)
         return;

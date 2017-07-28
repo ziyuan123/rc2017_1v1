@@ -12,11 +12,15 @@
 u8 SM_Motor_Servo_List[4] = {1, 2, 0, 0};
 s16 SM_Motor_Servo_Speed[4] = {0, 0, 0, 0};
 
+
+//模式设置
 void SM_Init() {
     UP_CDS_SetMode(SM_Motor_Servo_List[0], CDS_MOTOMODE);
     UP_CDS_SetMode(SM_Motor_Servo_List[1], CDS_MOTOMODE);
 }
 
+//速度控制----移动
+//入口参数：前进/后退，速度
 void SM_Move(int direction, int speed) {
     speed = speed > 0 ? speed : -speed;
     if (direction == DIRECTION_FORWARD) {
@@ -28,6 +32,9 @@ void SM_Move(int direction, int speed) {
     }
 }
 
+
+//速度控制----旋转
+//入口参数：左右方向，速度
 void SM_Spin(int direction, int speed) {
     speed = speed > 0 ? speed : -speed;
     if (direction == DIRECTION_LEFT) {
@@ -37,6 +44,9 @@ void SM_Spin(int direction, int speed) {
     }
 }
 
+
+//转向
+//入口参数; 方向/左右，前？，速度，差速
 void SM_TurnAround(int direction, int is_forward, int speed, int diff_speed) {
     speed = speed > 0 ? speed : -speed;
     diff_speed = diff_speed > 0 ? diff_speed : -diff_speed;
@@ -56,6 +66,8 @@ void SM_TurnAround(int direction, int is_forward, int speed, int diff_speed) {
     }
 }
 
+
+//基础move函数
 void SM_ServoMove(int left_speed, int right_speed) {
     SM_Motor_Servo_Speed[0] = left_speed;
     SM_Motor_Servo_Speed[1] = right_speed;

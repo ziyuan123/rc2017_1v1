@@ -27,7 +27,8 @@ int G4S_direction_data[4] = {0};
  * 2->left
  * 3->right
  */
-const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700},
+const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {
+                                                        {3200, 3100, 3020, 2700},
                                                         {3150, 3030, 2720, 2450},
                                                         {3150, 3050, 2720, 2350},
                                                         {3100, 3000, 2680, 2380}};
@@ -44,6 +45,8 @@ void G4S_enable(int enable) {
     }
 }
 
+
+//数值更新
 void G4S_UpdateGrayScaleSensor(void) {
     int i = 0, attack = 0;
     for (i = 0; i < 4; i++) {
@@ -115,6 +118,8 @@ void G4S_UpdateGrayScaleSensor(void) {
     }
 }
 
+
+//方向判断   返回方向值
 int G4S_Direction2Centre() {
     int i, x = 0, y = 0, result = DIRECTION_NONE;
 

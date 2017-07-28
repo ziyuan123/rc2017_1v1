@@ -29,26 +29,28 @@ void init() {
 int main(void) {
 
 #ifdef DEBUG_ON
-    UP_Bluetooth_EnableIT();
+    UP_Bluetooth_EnableIT();//开启蓝牙
 #endif
 
-    UP_Timer_EnableIT(0, 5000);//5ms
-    UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);
-    UP_Timer_EnableIT(1, 5000);//5ms
-    UP_Timer_SetHadler(1, CS_CheckState);
-    UP_System_Init();
+    UP_Timer_EnableIT(0, 5000);//5ms    设置定时器
+    UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);//定时器中断 四灰度检测
+    UP_Timer_EnableIT(1, 5000);//5ms    设置定时器
+    UP_Timer_SetHadler(1, CS_CheckState);            //定时器中断 擂台检测
+    UP_System_Init();   //系统初始化
     UP_delay_ms(100);
 
-    init();
+    init();     //初始化
 
-    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0));
+    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0))
+    ;//分号？？？
 
-    UA01_GetOnStage(DIRECTION_FORWARD);
 
-    G4S_enable(ENABLE);
-    CS_enable(ENABLE);
+    UA01_GetOnStage(DIRECTION_FORWARD);//上台
 
-    int under_stage_count = 0;
+    G4S_enable(ENABLE); //使能
+    CS_enable(ENABLE);  //使能
+
+    int under_stage_count = 0;  //擂台计数
     while (1) {
         if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE && CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE) {
             under_stage_count = 0;
