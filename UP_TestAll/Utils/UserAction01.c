@@ -4,7 +4,7 @@
 
 #include "common.h"
 #include "UserAction01.h"
-#include "UpLib/UP_System.h"
+#include "../UpLib/UP_System.h"
 #include "Grayscale4Sensor.h"
 #include "ServoMove.h"
 #include "CheckState.h"

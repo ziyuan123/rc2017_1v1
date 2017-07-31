@@ -2,7 +2,7 @@
 // Created by ilalh on 2017/7/11.
 //
 
-#include "UpLib/UP_System.h"
+#include "../UpLib/UP_System.h"
 
 #ifndef RC2017_1V1_CHECKSTATE_H
 #define RC2017_1V1_CHECKSTATE_H

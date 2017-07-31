@@ -1,7 +1,7 @@
 //
 // Created by admin on 2017/6/1.
 //
-#include "UpLib/UP_System.h"
+#include "../UpLib/UP_System.h"
 
 #ifndef RC2017_1V1_GRAYSCALE4SENSOR_H
 #define RC2017_1V1_GRAYSCALE4SENSOR_H

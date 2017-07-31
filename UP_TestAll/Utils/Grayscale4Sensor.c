@@ -3,7 +3,7 @@
 //
 
 #include "Grayscale4Sensor.h"
-#include "UpLib/UP_System.h"
+#include "../UpLib/UP_System.h"
 #include "utils.h"
 #include "common.h"
 #include "ServoMove.h"

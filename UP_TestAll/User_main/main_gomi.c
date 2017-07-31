@@ -1,9 +1,9 @@
-#include "UpLib/UP_System.h"
-#include "common.h"
-#include "Utils/Grayscale4Sensor.h"
-#include "Utils/ServoMove.h"
-#include "Utils/CheckState.h"
-#include "Utils/UserAction01.h"
+#include "../UpLib/UP_System.h"
+#include "../Utils/common.h"
+#include "../Utils/Grayscale4Sensor.h"
+#include "../Utils/ServoMove.h"
+#include "../Utils/CheckState.h"
+#include "../Utils/UserAction01.h"
 
 
 #ifdef DEBUG_ON
@@ -41,8 +41,7 @@ int main(void) {
 
     init();     //初始化
 
-    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0))
-    ;//分号？？？
+    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0));//分号？？？
 
 
     UA01_GetOnStage(DIRECTION_FORWARD);//上台

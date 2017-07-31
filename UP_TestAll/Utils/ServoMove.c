@@ -4,8 +4,8 @@
 
 #include "ServoMove.h"
 #include "common.h"
-#include "UpLib/STM32Lib/stm32f10x.h"
-#include "UpLib/UP_CDS5500.h"
+#include "../UpLib/STM32Lib/stm32f10x.h"
+#include "../UpLib/UP_CDS5500.h"
 
 //SM_Motor_Servo_List[0]--left motor
 //SM_Motor_Servo_List[1]--right motor
