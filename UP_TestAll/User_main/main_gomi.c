@@ -69,6 +69,11 @@ int main(void) {
             G4S_enable(ENABLE);
 
             UA01_PreAttack();
+            if(G4S_danger){
+                UA01_StopAttack();
+                UP_delay_ms(20);
+                continue;
+            }
             if(CS_EnemyState != 0){
                 if(CS_EnemyState &0x03){
                     UA01_Attack(DIRECTION_FORWARD);

@@ -38,4 +38,6 @@ int G4S_Direction2Centre();                 //方向判断
 
 extern int G4S_next_direction;
 
+extern int G4S_danger;
+
 #endif //RC2017_1V1_GRAYSCALE4SENSOR_H

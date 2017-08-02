@@ -12,6 +12,8 @@
 
 int G4S_Enable = DISABLE;
 
+int G4S_danger = 0;
+
 int G4S_next_direction = DIRECTION_NONE;
 
 u8 G4S_GrayScaleSensorList[4] = {0, 0, 0, 0};
@@ -22,7 +24,7 @@ int G4S_direction_data[4] = {0};
 
 int update_count = 0;
 
-void G4S_init(){
+void G4S_init() {
     UP_Timer_EnableIT(0, 5000);//5ms    设置定时器
     UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);//定时器中断 四灰度检测
 }
@@ -38,14 +40,14 @@ void G4S_enable(int enable) {
 
 //数值更新
 void G4S_UpdateGrayScaleSensor(void) {
-    int i = 0, attack = 0;
+    int i = 0;
+    G4S_danger = 0;
     for (i = 0; i < 4; i++) {
         G4S_gray_scale_origin_data[i] = UP_ADC_GetValue(G4S_GrayScaleSensorList[i]);
+        if (G4S_gray_scale_origin_data[i] > 2) {
+            G4S_danger = 1;
+        }
     }
-//    G4S_gray_scale_origin_data[0] = UP_ADC_GetValue(G4S_GrayScaleSensorList[0]);
-//    G4S_gray_scale_origin_data[1] = UP_ADC_GetValue(G4S_GrayScaleSensorList[1]);
-//    G4S_gray_scale_origin_data[2] = UP_ADC_GetValue(G4S_GrayScaleSensorList[2]);
-//    G4S_gray_scale_origin_data[3] = UP_ADC_GetValue(G4S_GrayScaleSensorList[3]);
 
     G4S_next_direction = G4S_Direction2Centre();
 
@@ -57,16 +59,8 @@ void G4S_UpdateGrayScaleSensor(void) {
     if (G4S_Enable == DISABLE)
         return;
 
-    if (CS_State == STATE_ENEMY_FORWARD || CS_State == STATE_ENEMY_BACKWARD) {
-        attack = 1;
-        for (i = 0; i < 4; i++) {
-            if (G4S_gray_scale_origin_data[i] > 2) {
-                attack = 0;
-                break;
-            }
-        }
-        if (attack)
-            return;
+    if (!G4S_danger && (CS_EnemyState != 0 || (CS_State & 0x0f) != 0)) {
+        return;
     }
 
     if (G4S_next_direction == DIRECTION_NONE) {
