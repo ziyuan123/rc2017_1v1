@@ -9,6 +9,8 @@
 
 extern u8 CS_IRSensorList[8];
 
+extern u8 CS_InclinationSensorList[2];
+
 extern int CS_State;
 
 void CS_enable(int enable);

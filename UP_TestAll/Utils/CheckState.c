@@ -8,6 +8,11 @@
 u8 CS_IRSensorList[8];
 u8 CS_IRSensorData[8];
 
+//0--横倾角
+//1--竖倾角
+u8 CS_InclinationSensorList[2];
+u16 CS_InclinationSensorData[2];
+
 int CS_Enable = DISABLE;
 
 int CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
@@ -31,6 +36,26 @@ void CS_CheckState() {
     int i = 0;
     for (i = 0; i < 8; i++) {
         CS_IRSensorData[i] = UP_ADC_GetIO(CS_IRSensorList[i]);
+    }
+
+    for (i = 0; i < 2; i++) {
+        CS_InclinationSensorData[i] = UP_ADC_GetValue(CS_InclinationSensorData[i]);
+    }
+
+    if(CS_InclinationSensorData[0]>2500){
+        CS_State = STATE_STUCK_LEFT;
+        return;
+    } else if(CS_InclinationSensorData[0]<2000){
+        CS_State = STATE_STUCK_RIGHT;
+        return;
+    }
+
+    if(CS_InclinationSensorData[1]>2500){
+        CS_State = STATE_STUCK_FRONT;
+        return;
+    } else if(CS_InclinationSensorData[1]<2000){
+        CS_State = STATE_STUCK_BACK;
+        return;
     }
 
     if (CS_IRSensorData[0] == 0 && CS_IRSensorData[1] == 0) {

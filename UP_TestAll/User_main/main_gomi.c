@@ -10,8 +10,11 @@
 //then the program is in debug mode
 #endif
 
-
-u8 GLOBAL_SENSOR_LIST[12] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+//0-3 灰度传感器
+//4-7 底部四红外
+//8-11 8-9前红外，10-11后红外
+//12-13 横倾角，竖倾角
+u8 GLOBAL_SENSOR_LIST[14] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
 const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700},
                                                         {3150, 3030, 2720, 2450},
@@ -31,6 +34,8 @@ void init() {
     CS_IRSensorList[5] = GLOBAL_SENSOR_LIST[9];
     CS_IRSensorList[6] = GLOBAL_SENSOR_LIST[10];
     CS_IRSensorList[7] = GLOBAL_SENSOR_LIST[11];
+    CS_InclinationSensorList[0] = GLOBAL_SENSOR_LIST[12];
+    CS_InclinationSensorList[1] = GLOBAL_SENSOR_LIST[13];
     SM_Init();
     UA01_Init();
 }
