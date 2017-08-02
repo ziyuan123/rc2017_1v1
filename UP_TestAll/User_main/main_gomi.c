@@ -14,7 +14,7 @@
 //4-7 底部四红外
 //8-11 8-9前红外，10-11后红外
 //12-13 横倾角，竖倾角
-u8 GLOBAL_SENSOR_LIST[14] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+u8 GLOBAL_SENSOR_LIST[14] = {0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 8, 9};
 
 const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700},
                                                         {3150, 3030, 2720, 2450},
@@ -36,8 +36,12 @@ void init() {
     CS_IRSensorList[7] = GLOBAL_SENSOR_LIST[11];
     CS_InclinationSensorList[0] = GLOBAL_SENSOR_LIST[12];
     CS_InclinationSensorList[1] = GLOBAL_SENSOR_LIST[13];
+
     SM_Init();
     UA01_Init();
+
+    G4S_init();
+    CS_Init();
 }
 
 int main(void) {
@@ -46,10 +50,6 @@ int main(void) {
     UP_Bluetooth_EnableIT();//开启蓝牙
 #endif
 
-    UP_Timer_EnableIT(0, 5000);//5ms    设置定时器
-    UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);//定时器中断 四灰度检测
-    UP_Timer_EnableIT(1, 5000);//5ms    设置定时器
-    UP_Timer_SetHadler(1, CS_CheckState);            //定时器中断 擂台检测
     UP_System_Init();   //系统初始化
     UP_delay_ms(100);
 
@@ -64,20 +64,49 @@ int main(void) {
 
     int under_stage_count = 0;  //擂台计数
     while (1) {
-        if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE &&
-            CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE &&
-            CS_State != STATE_STUCK_FRONT &&
-            CS_State != STATE_STUCK_BACK &&
-            CS_State != STATE_STUCK_LEFT &&
-            CS_State != STATE_STUCK_RIGHT) {
+        if ((CS_State & 0xf0) != 0) {
             under_stage_count = 0;
             G4S_enable(ENABLE);
+
+            UA01_PreAttack();
+            if(CS_EnemyState != 0){
+                if(CS_EnemyState &0x03){
+                    UA01_Attack(DIRECTION_FORWARD);
+                } else{
+                    UA01_Attack(DIRECTION_BACK);
+                }
+                continue;
+            }
+            switch (CS_State) {
+                case STATE_ON_STAGE:
+                    UP_Bluetooth_Puts("OS\n");
+                    UA01_PreAttack();
+                    break;
+                case STATE_ENEMY_FORWARD:
+                    UP_Bluetooth_Puts("EF\n");
+                    UA01_Attack(DIRECTION_FORWARD);
+                    break;
+                case STATE_ENEMY_BACKWARD:
+                    UP_Bluetooth_Puts("EB\n");
+                    UA01_Attack(DIRECTION_BACK);
+                    break;
+                case STATE_ENEMY_LEFT:
+                    UP_Bluetooth_Puts("EL\n");
+                    UA01_StopAttack();
+                    SM_Spin(DIRECTION_LEFT, 400);
+                    break;
+                case STATE_ENEMY_RIGHT:
+                    UP_Bluetooth_Puts("ER\n");
+                    UA01_StopAttack();
+                    SM_Spin(DIRECTION_RIGHT, 400);
+                    break;
+                default:
+                    UP_Bluetooth_Puts("NO\n");
+                    break;
+            }
+            continue;
         }
         switch (CS_State) {
-            case STATE_ON_STAGE:
-                UP_Bluetooth_Puts("OS\n");
-                UA01_PreAttack();
-                break;
             case STATE_UNDER_STAGE_FACE_TO_STAGE:
             case STATE_UNDER_STAGE_FACE_NOT_TO_STAGE:
                 G4S_enable(DISABLE);
@@ -90,24 +119,6 @@ int main(void) {
                     under_stage_count = 0;
                     UA01_GetOnStage(UA01_FindStage());
                 }
-                break;
-            case STATE_ENEMY_FORWARD:
-                UP_Bluetooth_Puts("EF\n");
-                UA01_Attack(DIRECTION_FORWARD);
-                break;
-            case STATE_ENEMY_BACKWARD:
-                UP_Bluetooth_Puts("EB\n");
-                UA01_Attack(DIRECTION_BACK);
-                break;
-            case STATE_ENEMY_LEFT:
-                UP_Bluetooth_Puts("EL\n");
-                UA01_StopAttack();
-                SM_Spin(DIRECTION_LEFT, 400);
-                break;
-            case STATE_ENEMY_RIGHT:
-                UP_Bluetooth_Puts("ER\n");
-                UA01_StopAttack();
-                SM_Spin(DIRECTION_RIGHT, 400);
                 break;
             case STATE_STUCK_LEFT:
             case STATE_STUCK_RIGHT:

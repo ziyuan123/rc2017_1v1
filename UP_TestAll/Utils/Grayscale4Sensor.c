@@ -22,6 +22,11 @@ int G4S_direction_data[4] = {0};
 
 int update_count = 0;
 
+void G4S_init(){
+    UP_Timer_EnableIT(0, 5000);//5ms    设置定时器
+    UP_Timer_SetHadler(0, G4S_UpdateGrayScaleSensor);//定时器中断 四灰度检测
+}
+
 void G4S_enable(int enable) {
     if (enable == ENABLE) {
         G4S_Enable = ENABLE;
@@ -30,7 +35,6 @@ void G4S_enable(int enable) {
         G4S_next_direction = DIRECTION_NONE;
     }
 }
-
 
 //数值更新
 void G4S_UpdateGrayScaleSensor(void) {

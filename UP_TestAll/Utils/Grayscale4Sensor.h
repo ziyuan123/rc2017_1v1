@@ -28,6 +28,8 @@ extern int G4S_gray_scale_origin_data[4];   //原始数据
 extern int G4S_direction_data[4];           //方向数据
 
 //===function===
+void G4S_init();
+
 void G4S_enable(int enable);                 //使能
 
 void G4S_UpdateGrayScaleSensor();           //数据更新

@@ -13,8 +13,18 @@ extern u8 CS_InclinationSensorList[2];
 
 extern int CS_State;
 
+extern u8 CS_EnemyState;
+
+void CS_Init();
+
 void CS_enable(int enable);
 
 void CS_CheckState();
+
+void CS_CheckEnemyExti(u32 channel);
+void CS_CheckEnemyExtiFrontLeft();
+void CS_CheckEnemyExtiFrontRight();
+void CS_CheckEnemyExtiBackLeft();
+void CS_CheckEnemyExtiBackRight();
 
 #endif //RC2017_1V1_CHECKSTATE_H
