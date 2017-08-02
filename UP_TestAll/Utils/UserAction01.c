@@ -66,15 +66,15 @@ void UA01_GetOnStage(int direction) {
     if (direction == DIRECTION_FORWARD) {
         UA01_hand_motor_speed[0] = 500;
         UA01_hand_motor_speed[1] = -500;
-        UA01_hand_motor_speed[2] = 500;
-        UA01_hand_motor_speed[3] = -500;
+        UA01_hand_motor_speed[2] = -500;
+        UA01_hand_motor_speed[3] = 500;
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);//四电机速度初始化设置
         SM_Move(DIRECTION_FORWARD, 500);    //500速度向前
     } else {
         UA01_hand_motor_speed[0] = -500;
         UA01_hand_motor_speed[1] = 500;
-        UA01_hand_motor_speed[2] = -500;
-        UA01_hand_motor_speed[3] = 500;
+        UA01_hand_motor_speed[2] = 500;
+        UA01_hand_motor_speed[3] = -500;
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
         SM_Move(DIRECTION_BACK, 500);   //500速度向后
     }
@@ -84,7 +84,7 @@ void UA01_GetOnStage(int direction) {
     UP_delay_ms(1000);
     if (direction == DIRECTION_FORWARD) UA01_BackArmDown();
     else UA01_FrontArmDown();
-    UP_delay_ms(1000);
+    UP_delay_ms(1300);
     if (direction == DIRECTION_FORWARD) UA01_FrontArmUp();
     else UA01_BackArmUp();
     if (direction == DIRECTION_FORWARD) UA01_BackArmUp();
@@ -130,10 +130,36 @@ int UA01_FindStage() {
 
 //攻击
 void UA01_PreAttack() {
-
+    UP_CDS_SetAngle(UA01_arm_servo_list[0], 581, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[1], 428, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[2], 385, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[3], 598, 512);
 }
 
 //攻击
 void UA01_Attack(int direction) {
+    UA01_PreAttack();
+    if (direction == DIRECTION_FORWARD) {
+        UA01_hand_motor_speed[0] = 500;
+        UA01_hand_motor_speed[1] = -500;
+        UA01_hand_motor_speed[2] = -500;
+        UA01_hand_motor_speed[3] = 500;
+        UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);//四电机速度初始化设置
+        SM_Move(DIRECTION_FORWARD, 500);    //500速度向前
+    } else {
+        UA01_hand_motor_speed[0] = -500;
+        UA01_hand_motor_speed[1] = 500;
+        UA01_hand_motor_speed[2] = 500;
+        UA01_hand_motor_speed[3] = -500;
+        UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
+        SM_Move(DIRECTION_BACK, 500);   //500速度向后
+    }
+}
 
+void UA01_StopAttack() {
+    int i = 0;
+    for (i = 0; i < 4; i++) {
+        UA01_hand_motor_speed[i] = 0;
+    }
+    UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
 }

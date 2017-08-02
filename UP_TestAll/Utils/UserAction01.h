@@ -25,4 +25,6 @@ void UA01_PreAttack();
 
 void UA01_Attack(int direction);
 
+void UA01_StopAttack();
+
 #endif //RC2017_1V1_USERACTION01_H

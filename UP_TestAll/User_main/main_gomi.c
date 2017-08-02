@@ -11,7 +11,7 @@
 #endif
 
 
-u8 GLOBAL_SENSOR_LIST[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+u8 GLOBAL_SENSOR_LIST[12] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
 const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700},
                                                         {3150, 3030, 2720, 2450},
@@ -27,6 +27,10 @@ void init() {
     CS_IRSensorList[1] = GLOBAL_SENSOR_LIST[5];
     CS_IRSensorList[2] = GLOBAL_SENSOR_LIST[6];
     CS_IRSensorList[3] = GLOBAL_SENSOR_LIST[7];
+    CS_IRSensorList[4] = GLOBAL_SENSOR_LIST[8];
+    CS_IRSensorList[5] = GLOBAL_SENSOR_LIST[9];
+    CS_IRSensorList[6] = GLOBAL_SENSOR_LIST[10];
+    CS_IRSensorList[7] = GLOBAL_SENSOR_LIST[11];
     SM_Init();
     UA01_Init();
 }
@@ -46,8 +50,7 @@ int main(void) {
 
     init();     //初始化
 
-    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0));//分号？？？
-
+    while (!(UP_ADC_GetIO(CS_IRSensorList[2]) == 0 && UP_ADC_GetIO(CS_IRSensorList[3]) == 0));
 
     UA01_GetOnStage(DIRECTION_FORWARD);//上台
 
@@ -71,6 +74,7 @@ int main(void) {
                 UP_Bluetooth_Puts("US\n");
                 under_stage_count++;
                 if (under_stage_count > 4) {
+                    UA01_PreAction();
                     UP_Bluetooth_Puts("get on stage\n");
                     G4S_enable(DISABLE);
                     under_stage_count = 0;
@@ -87,10 +91,12 @@ int main(void) {
                 break;
             case STATE_ENEMY_LEFT:
                 UP_Bluetooth_Puts("EL\n");
+                UA01_StopAttack();
                 SM_Spin(DIRECTION_LEFT, 400);
                 break;
             case STATE_ENEMY_RIGHT:
                 UP_Bluetooth_Puts("ER\n");
+                UA01_StopAttack();
                 SM_Spin(DIRECTION_RIGHT, 400);
                 break;
             default:

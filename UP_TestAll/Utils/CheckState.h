@@ -7,7 +7,7 @@
 #ifndef RC2017_1V1_CHECKSTATE_H
 #define RC2017_1V1_CHECKSTATE_H
 
-extern u8 CS_IRSensorList[4];
+extern u8 CS_IRSensorList[8];
 
 extern int CS_State;
 

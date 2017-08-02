@@ -5,8 +5,8 @@
 #include "CheckState.h"
 #include "common.h"
 
-u8 CS_IRSensorList[4];  //四灰度表单
-u8 CS_IRSensorData[4];  //四灰度数据
+u8 CS_IRSensorList[8];
+u8 CS_IRSensorData[8];
 
 int CS_Enable = DISABLE;
 
@@ -29,7 +29,7 @@ void CS_CheckState() {
     if (CS_Enable == DISABLE)
         return;
     int i = 0;
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 8; i++) {
         CS_IRSensorData[i] = UP_ADC_GetIO(CS_IRSensorList[i]);
     }
 
@@ -45,6 +45,15 @@ void CS_CheckState() {
             CS_State = STATE_ENEMY_FORWARD + i;
             return;
         }
+    }
+
+    if (CS_IRSensorData[4] == 0 || CS_IRSensorData[5] == 0) {
+        CS_State = STATE_ENEMY_FORWARD;
+        return;
+    }
+    if (CS_IRSensorData[6] == 0 || CS_IRSensorData[7] == 0) {
+        CS_State = STATE_ENEMY_BACKWARD;
+        return;
     }
     CS_State = STATE_ON_STAGE;
 }
