@@ -11,8 +11,14 @@
 #define G4S_GRAY_SCALE_SENSOR_LEFT 2
 #define G4S_GRAY_SCALE_SENSOR_RIGHT 3
 
-//extern int G4S_Enable;
-
+#define G4S_SENSOR_DATA_LENGTH 4
+/*
+ * 0->forward
+ * 1->backward
+ * 2->left
+ * 3->right
+ */
+extern const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH];
 
 //===data===
 extern u8 G4S_GrayScaleSensorList[4];        //四灰度值存放

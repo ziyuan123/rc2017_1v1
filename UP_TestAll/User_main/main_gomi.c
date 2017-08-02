@@ -13,6 +13,11 @@
 
 u8 GLOBAL_SENSOR_LIST[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
+const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3200, 3100, 3020, 2700},
+                                                        {3150, 3030, 2720, 2450},
+                                                        {3150, 3050, 2720, 2350},
+                                                        {3100, 3000, 2680, 2380}};
+
 void init() {
     G4S_GrayScaleSensorList[0] = GLOBAL_SENSOR_LIST[0];
     G4S_GrayScaleSensorList[1] = GLOBAL_SENSOR_LIST[1];

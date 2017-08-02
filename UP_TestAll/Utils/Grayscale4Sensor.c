@@ -20,21 +20,7 @@ int G4S_gray_scale_origin_data[4] = {0, 0, 0, 0};
 
 int G4S_direction_data[4] = {0};
 
-#define G4S_SENSOR_DATA_LENGTH 4
-/*
- * 0->forward
- * 1->backward
- * 2->left
- * 3->right
- */
-const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {
-                                                        {3200, 3100, 3020, 2700},
-                                                        {3150, 3030, 2720, 2450},
-                                                        {3150, 3050, 2720, 2350},
-                                                        {3100, 3000, 2680, 2380}};
-
 int update_count = 0;
-
 
 void G4S_enable(int enable) {
     if (enable == ENABLE) {
