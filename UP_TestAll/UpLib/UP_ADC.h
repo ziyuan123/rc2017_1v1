@@ -1,7 +1,7 @@
 /******************************************************************/
-//	Copyright (C), 2011-2012, ±±¾©²©´´ 
-//  Author   	  	: ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2012, åŒ—äº¬åšåˆ› 
+//  Author   	  	: é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2012/08/01
 //  Version   	  : 1.3          
 //  Description   : Transplant to v3.5 function library
@@ -10,10 +10,10 @@
 #ifndef ADC_H
 #define ADC_H
 
-//Ó²¼ş³õÊ¼»¯
-extern void  UP_ADC_Init(void);								//ADÏà¹Ø³õÊ¼»¯
-extern u16   UP_ADC_GetValue(u8 Channel);			//»ñÈ¡AD²ÉÑùÖµ£¬ÊäÈëÍ¨µÀ0~15£¬·µ»ØADCÖµ0~4095¶ÔÓ¦0~5V
-extern u8    UP_ADC_GetIO(u8 Channel);				//»ñÈ¡IO²ÉÑùÖµ£¬ÊäÈëÍ¨µÀ0~15£¬·µ»Ø0»ò1
-extern u16   UP_ADC_GetAllIO(void);						//»ñÈ¡IO²ÉÑùÖµ£¬·µ»Ø16Â·IO×´Ì¬£¬16Î»ÎŞ·ûºÅÕûĞÎÃ¿Ò»Î»¶ÔÓ¦Ò»Â·
+//ç¡¬ä»¶åˆå§‹åŒ–
+extern void  UP_ADC_Init(void);								//ADç›¸å…³åˆå§‹åŒ–
+extern u16   UP_ADC_GetValue(u8 Channel);			//è·å–ADé‡‡æ ·å€¼ï¼Œè¾“å…¥é€šé“0~15ï¼Œè¿”å›ADCå€¼0~4095å¯¹åº”0~5V
+extern u8    UP_ADC_GetIO(u8 Channel);				//è·å–IOé‡‡æ ·å€¼ï¼Œè¾“å…¥é€šé“0~15ï¼Œè¿”å›0æˆ–1
+extern u16   UP_ADC_GetAllIO(void);						//è·å–IOé‡‡æ ·å€¼ï¼Œè¿”å›16è·¯IOçŠ¶æ€ï¼Œ16ä½æ— ç¬¦å·æ•´å½¢æ¯ä¸€ä½å¯¹åº”ä¸€è·¯
 
 #endif

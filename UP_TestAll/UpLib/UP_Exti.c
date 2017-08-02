@@ -1,10 +1,10 @@
 /******************************************************************/
-//	Copyright (C), 2011-2013, ±±¾©²©´´ 
-//  Author   	  : ³ÂÖĞÔª  
+//	Copyright (C), 2011-2013, åŒ—äº¬åšåˆ› 
+//  Author   	  : é™ˆä¸­å…ƒ  
 //  Update Date   : 2011/06/12
 //  Version   	  : 1.2            
 //  Description   :  
-//  Reviser				: ÇÇäìéª
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2013/09/24
 //  Version   	  : 1.3          
 //  Description   : Change GPIO Settings and EXTI line Settings.
@@ -14,20 +14,20 @@
 #include "UP_Globle.h"
 
 /*************************************************
-  º¯ÊıÃû³Æ: UP_Exti_Init
-  º¯Êı¹¦ÄÜ: Íâ²¿ÖĞ¶Ï³õÊ¼»¯
-  ±»±¾º¯Êıµ÷ÓÃµÄº¯Êı: ÎŞ        
-  µ÷ÓÃ±¾º¯ÊıµÄº¯Êı: ÎŞ    
-  ÊäÈë²ÎÊıËµÃ÷: ÎŞ
-  Êä³ö²ÎÊıËµÃ÷: ÎŞ       
-  º¯Êı·µ»ØÖµ: ÎŞ
-  ÆäËüËµÃ÷: ÎŞ        
+  å‡½æ•°åç§°: UP_Exti_Init
+  å‡½æ•°åŠŸèƒ½: å¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ—         
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ—     
+  è¾“å…¥å‚æ•°è¯´æ˜: æ— 
+  è¾“å‡ºå‚æ•°è¯´æ˜: æ—        
+  å‡½æ•°è¿”å›å€¼: æ— 
+  å…¶å®ƒè¯´æ˜: æ—         
 *************************************************/
 void UP_Exti_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	//Á¬½Ó°´¼üIO¿Úµ½ÖĞ¶ÏÏß
+	//è¿æ¥æŒ‰é”®IOå£åˆ°ä¸­æ–­çº¿
 	if(g_UP_ExtiFlag & EXTI_UP)
 		GPIO_EXTILineConfig(GPIO_PortSourceGPIOD, GPIO_PinSource14);
 	if(g_UP_ExtiFlag & EXTI_DOWN)
@@ -37,8 +37,8 @@ void UP_Exti_Init(void)
 	if(g_UP_ExtiFlag & EXTI_BACK)
 		GPIO_EXTILineConfig(GPIO_PortSourceGPIOD, GPIO_PinSource12);
 	
-	//Á¬½ÓAD¿Úµ½ÖĞ¶ÏÏß
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	//Ğü¿ÕÊäÈë
+	//è¿æ¥ADå£åˆ°ä¸­æ–­çº¿
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;	//æ‚¬ç©ºè¾“å…¥
 	if(g_UP_ExtiFlag & EXTI_AD4)
 	{
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
@@ -90,21 +90,21 @@ void UP_Exti_Init(void)
 }
 
 /*************************************************
-  º¯ÊıÃû³Æ: UP_Exti_EnableIT
-  º¯Êı¹¦ÄÜ: Ê¹ÄÜÍâ²¿ÖĞ¶Ï
-  ±»±¾º¯Êıµ÷ÓÃµÄº¯Êı: ÎŞ        
-  µ÷ÓÃ±¾º¯ÊıµÄº¯Êı: ÎŞ    
-  ÊäÈë²ÎÊıËµÃ÷: Channel´ú±íÉèÖÃµÄÍâ²¿ÖĞ¶ÏµÄÍ¨µÀ£¬
-                EXTITrigger_TypeDef TriggerMode´ú±íÉèÖÃµÄÍâ²¿ÖĞ¶Ï´¥·¢ĞÅºÅµÄÄ£Ê½¡£
-  Êä³ö²ÎÊıËµÃ÷: ÎŞ       
-  º¯Êı·µ»ØÖµ: ÎŞ
-  ÆäËüËµÃ÷: ÎŞ        
+  å‡½æ•°åç§°: UP_Exti_EnableIT
+  å‡½æ•°åŠŸèƒ½: ä½¿èƒ½å¤–éƒ¨ä¸­æ–­
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ—         
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ—     
+  è¾“å…¥å‚æ•°è¯´æ˜: Channelä»£è¡¨è®¾ç½®çš„å¤–éƒ¨ä¸­æ–­çš„é€šé“ï¼Œ
+                EXTITrigger_TypeDef TriggerModeä»£è¡¨è®¾ç½®çš„å¤–éƒ¨ä¸­æ–­è§¦å‘ä¿¡å·çš„æ¨¡å¼ã€‚
+  è¾“å‡ºå‚æ•°è¯´æ˜: æ—        
+  å‡½æ•°è¿”å›å€¼: æ— 
+  å…¶å®ƒè¯´æ˜: æ—         
 *************************************************/
 void UP_Exti_EnableIT(u32 Channel, EXTITrigger_TypeDef TriggerMode)
 {
 	EXTI_InitTypeDef EXTI_InitStructure;
 	g_UP_ExtiFlag |= Channel;
-	//ÅäÖÃÖĞ¶ÏÏß
+	//é…ç½®ä¸­æ–­çº¿
 	EXTI_InitStructure.EXTI_Line = Channel;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = TriggerMode;
@@ -113,14 +113,14 @@ void UP_Exti_EnableIT(u32 Channel, EXTITrigger_TypeDef TriggerMode)
 }
 
 /*************************************************
-  º¯ÊıÃû³Æ: UP_Exti_SetHadler
-  º¯Êı¹¦ÄÜ: ´«µİÍâ²¿ÖĞ¶ÏÈë¿Úº¯Êı
-  ±»±¾º¯Êıµ÷ÓÃµÄº¯Êı: ÎŞ        
-  µ÷ÓÃ±¾º¯ÊıµÄº¯Êı: ÎŞ    
-  ÊäÈë²ÎÊıËµÃ÷: ¶¨ÒåApplicationAddressÎªÖ¸ÕëÀàĞÍ
-  Êä³ö²ÎÊıËµÃ÷: ÎŞ       
-  º¯Êı·µ»ØÖµ: ÎŞ
-  ÆäËüËµÃ÷: ÎŞ        
+  å‡½æ•°åç§°: UP_Exti_SetHadler
+  å‡½æ•°åŠŸèƒ½: ä¼ é€’å¤–éƒ¨ä¸­æ–­å…¥å£å‡½æ•°
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ—         
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ—     
+  è¾“å…¥å‚æ•°è¯´æ˜: å®šä¹‰ApplicationAddressä¸ºæŒ‡é’ˆç±»å‹
+  è¾“å‡ºå‚æ•°è¯´æ˜: æ—        
+  å‡½æ•°è¿”å›å€¼: æ— 
+  å…¶å®ƒè¯´æ˜: æ—         
 *************************************************/
 void UP_Exti_SetHadler(void (*ApplicationAddress)(u32))
 {
@@ -129,20 +129,20 @@ void UP_Exti_SetHadler(void (*ApplicationAddress)(u32))
 }
 
 /*************************************************
-  º¯ÊıÃû³Æ: UP_Exti_DisableIT
-  º¯Êı¹¦ÄÜ: ½ûÄÜÍâ²¿ÖĞ¶Ï
-  ±»±¾º¯Êıµ÷ÓÃµÄº¯Êı: ÎŞ        
-  µ÷ÓÃ±¾º¯ÊıµÄº¯Êı: ÎŞ    
-  ÊäÈë²ÎÊıËµÃ÷: ChannelÎª½ûÄÜµÄÍ¨µÀ¡£
-  Êä³ö²ÎÊıËµÃ÷: ÎŞ       
-  º¯Êı·µ»ØÖµ: ÎŞ
-  ÆäËüËµÃ÷: ÎŞ        
+  å‡½æ•°åç§°: UP_Exti_DisableIT
+  å‡½æ•°åŠŸèƒ½: ç¦èƒ½å¤–éƒ¨ä¸­æ–­
+  è¢«æœ¬å‡½æ•°è°ƒç”¨çš„å‡½æ•°: æ—         
+  è°ƒç”¨æœ¬å‡½æ•°çš„å‡½æ•°: æ—     
+  è¾“å…¥å‚æ•°è¯´æ˜: Channelä¸ºç¦èƒ½çš„é€šé“ã€‚
+  è¾“å‡ºå‚æ•°è¯´æ˜: æ—        
+  å‡½æ•°è¿”å›å€¼: æ— 
+  å…¶å®ƒè¯´æ˜: æ—         
 *************************************************/
 void UP_Exti_DisableIT(u32 Channel)
 {
 	EXTI_InitTypeDef EXTI_InitStructure;
 	g_UP_ExtiFlag &= ~Channel;
-	//ÅäÖÃÖĞ¶ÏÏß
+	//é…ç½®ä¸­æ–­çº¿
 	EXTI_InitStructure.EXTI_Line = Channel;
 	EXTI_InitStructure.EXTI_LineCmd = DISABLE;
 	EXTI_Init(&EXTI_InitStructure);		
