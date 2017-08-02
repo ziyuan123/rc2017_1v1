@@ -64,7 +64,12 @@ int main(void) {
 
     int under_stage_count = 0;  //擂台计数
     while (1) {
-        if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE && CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE) {
+        if (CS_State != STATE_UNDER_STAGE_FACE_TO_STAGE &&
+            CS_State != STATE_UNDER_STAGE_FACE_NOT_TO_STAGE &&
+            CS_State != STATE_STUCK_FRONT &&
+            CS_State != STATE_STUCK_BACK &&
+            CS_State != STATE_STUCK_LEFT &&
+            CS_State != STATE_STUCK_RIGHT) {
             under_stage_count = 0;
             G4S_enable(ENABLE);
         }
@@ -104,10 +109,42 @@ int main(void) {
                 UA01_StopAttack();
                 SM_Spin(DIRECTION_RIGHT, 400);
                 break;
+            case STATE_STUCK_LEFT:
+            case STATE_STUCK_RIGHT:
+                G4S_enable(DISABLE);
+                under_stage_count++;
+                if (under_stage_count > 4) {
+                    UA01_PreAction();
+                    G4S_enable(DISABLE);
+                    under_stage_count = 0;
+                    UA01_FrontArmDown();
+                    UA01_BackArmDown();
+                }
+                break;
+            case STATE_STUCK_FRONT:
+                G4S_enable(DISABLE);
+                under_stage_count++;
+                if (under_stage_count > 4) {
+                    UA01_PreAction();
+                    G4S_enable(DISABLE);
+                    under_stage_count = 0;
+                    UA01_GetOnStage(DIRECTION_FORWARD);
+                }
+                break;
+            case STATE_STUCK_BACK:
+                G4S_enable(DISABLE);
+                under_stage_count++;
+                if (under_stage_count > 4) {
+                    UA01_PreAction();
+                    G4S_enable(DISABLE);
+                    under_stage_count = 0;
+                    UA01_GetOnStage(DIRECTION_BACK);
+                }
+                break;
             default:
                 UP_Bluetooth_Puts("NO\n");
                 break;
         }
-        UP_delay_ms(500);
+        UP_delay_ms(100);
     }
 }

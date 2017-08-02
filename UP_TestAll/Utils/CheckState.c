@@ -42,19 +42,19 @@ void CS_CheckState() {
         CS_InclinationSensorData[i] = UP_ADC_GetValue(CS_InclinationSensorData[i]);
     }
 
-    if(CS_InclinationSensorData[0]>2500){
-        CS_State = STATE_STUCK_LEFT;
-        return;
-    } else if(CS_InclinationSensorData[0]<2000){
-        CS_State = STATE_STUCK_RIGHT;
-        return;
-    }
-
     if(CS_InclinationSensorData[1]>2500){
         CS_State = STATE_STUCK_FRONT;
         return;
     } else if(CS_InclinationSensorData[1]<2000){
         CS_State = STATE_STUCK_BACK;
+        return;
+    }
+
+    if(CS_InclinationSensorData[0]>2500){
+        CS_State = STATE_STUCK_LEFT;
+        return;
+    } else if(CS_InclinationSensorData[0]<2000){
+        CS_State = STATE_STUCK_RIGHT;
         return;
     }
 
