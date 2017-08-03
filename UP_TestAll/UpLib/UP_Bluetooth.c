@@ -1,7 +1,7 @@
 /******************************************************************/
-//	Copyright (C), 2011-2013, ±±¾©²©´´ 
-//  Author   	  : ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2013, åŒ—äº¬åšåˆ› 
+//  Author   	  : é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2013/07/12
 //  Version   	  : 1.2.1            
 //  Description   :  modification for new controller
@@ -14,40 +14,40 @@
 #define HC_KEY_L		(GPIOD->ODR &= ~GPIO_Pin_7)
 #define HC_KEY_H		(GPIOD->ODR |= GPIO_Pin_7)
 
-//À¶ÑÀ³õÊ¼»¯
+//è“ç‰™åˆå§‹åŒ–
 void UP_Bluetooth_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
-	//PD7×öÀ¶ÑÀ¿ØÖÆ¶Ë
+	//PD7åšè“ç‰™æ§åˆ¶ç«¯
 	HC_KEY_L;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	  //ÍÆÍìÊä³ö
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;	  //æ¨æŒ½è¾“å‡º
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 }
 
-//Ê¹ÄÜÀ¶ÑÀÊı¾İ½ÓÊÕÖĞ¶Ï
+//ä½¿èƒ½è“ç‰™æ•°æ®æ¥æ”¶ä¸­æ–­
 void UP_Bluetooth_EnableIT(void)
 {
 	g_UP_bBluetoothIT = TRUE;		
 }
 
-//¶¨ÒåÀ¶ÑÀÊı¾İ½ÓÊÕÖĞ¶ÏÈë¿Úº¯Êı
+//å®šä¹‰è“ç‰™æ•°æ®æ¥æ”¶ä¸­æ–­å…¥å£å‡½æ•°
 void UP_SetBluetoothHadler(void (*ApplicationAddress)(u32))
 {
 	if(ApplicationAddress != 0)
 		g_UP_BluetoothITAddress = (u32)ApplicationAddress;	
 }
 
-//À¶ÑÀ·¢ËÍÒ»¸ö×Ö·û
+//è“ç‰™å‘é€ä¸€ä¸ªå­—ç¬¦
 void UP_Bluetooth_Putc(unsigned char c)
 {
 	UP_UART1_Putc(c);
 } 
 
-//À¶ÑÀ·¢ËÍÒ»´®×Ö·û	
+//è“ç‰™å‘é€ä¸€ä¸²å­—ç¬¦	
 void UP_Bluetooth_Puts(char * str)
 {
 	UP_UART1_Puts(str);

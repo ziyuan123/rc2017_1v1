@@ -4,6 +4,7 @@
 #include "../Utils/ServoMove.h"
 #include "../Utils/CheckState.h"
 #include "../Utils/UserAction01.h"
+#include "utils.h"
 
 
 #ifdef DEBUG_ON
@@ -69,44 +70,47 @@ int main(void) {
             G4S_enable(ENABLE);
 
             UA01_PreAttack();
-            if(G4S_danger){
+            if (G4S_danger) {
+                debug_bluetooth_puts("g4s danger\n");
                 UA01_StopAttack();
                 UP_delay_ms(20);
                 continue;
             }
-            if(CS_EnemyState != 0){
-                if(CS_EnemyState &0x03){
+            if (CS_EnemyState != 0) {
+                if (CS_EnemyState & 0x03) {
+                    debug_bluetooth_puts("cs en f\n");
                     UA01_Attack(DIRECTION_FORWARD);
-                } else{
+                } else {
+                    debug_bluetooth_puts("cs en b\n");
                     UA01_Attack(DIRECTION_BACK);
                 }
                 continue;
             }
             switch (CS_State) {
                 case STATE_ON_STAGE:
-                    UP_Bluetooth_Puts("OS\n");
+                    debug_bluetooth_puts("OS\n");
                     UA01_PreAttack();
                     break;
                 case STATE_ENEMY_FORWARD:
-                    UP_Bluetooth_Puts("EF\n");
+                    debug_bluetooth_puts("EF\n");
                     UA01_Attack(DIRECTION_FORWARD);
                     break;
                 case STATE_ENEMY_BACKWARD:
-                    UP_Bluetooth_Puts("EB\n");
+                    debug_bluetooth_puts("EB\n");
                     UA01_Attack(DIRECTION_BACK);
                     break;
                 case STATE_ENEMY_LEFT:
-                    UP_Bluetooth_Puts("EL\n");
+                    debug_bluetooth_puts("EL\n");
                     UA01_StopAttack();
                     SM_Spin(DIRECTION_LEFT, 400);
                     break;
                 case STATE_ENEMY_RIGHT:
-                    UP_Bluetooth_Puts("ER\n");
+                    debug_bluetooth_puts("ER\n");
                     UA01_StopAttack();
                     SM_Spin(DIRECTION_RIGHT, 400);
                     break;
                 default:
-                    UP_Bluetooth_Puts("NO\n");
+                    debug_bluetooth_puts("NO\n");
                     break;
             }
             continue;
@@ -115,11 +119,11 @@ int main(void) {
             case STATE_UNDER_STAGE_FACE_TO_STAGE:
             case STATE_UNDER_STAGE_FACE_NOT_TO_STAGE:
                 G4S_enable(DISABLE);
-                UP_Bluetooth_Puts("US\n");
+                debug_bluetooth_puts("US\n");
                 under_stage_count++;
                 if (under_stage_count > 4) {
                     UA01_PreAction();
-                    UP_Bluetooth_Puts("get on stage\n");
+                    debug_bluetooth_puts("get on stage\n");
                     G4S_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_GetOnStage(UA01_FindStage());
@@ -158,7 +162,7 @@ int main(void) {
                 }
                 break;
             default:
-                UP_Bluetooth_Puts("NO\n");
+                debug_bluetooth_puts("NO\n");
                 break;
         }
         UP_delay_ms(100);

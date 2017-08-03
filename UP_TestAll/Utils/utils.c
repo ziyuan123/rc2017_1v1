@@ -3,6 +3,7 @@
 //
 
 #include "utils.h"
+#include "../UpLib/UP_Bluetooth.h"
 
 int find_nearest_in_array_descend(int value, const int *array, int start, int end) {
     int i;
@@ -14,4 +15,10 @@ int find_nearest_in_array_descend(int value, const int *array, int start, int en
         return (value - array[i - 1]) < (array[i] - value) ? i - 1 : i;
     else
         return i;
+}
+
+void debug_bluetooth_puts(char *s) {
+#ifdef DEBUG_ON
+    UP_Bluetooth_Puts(s);
+#endif
 }
