@@ -4,6 +4,7 @@
 
 #include "CheckState.h"
 #include "common.h"
+#include "utils.h"
 
 u8 CS_IRSensorList[8];
 u8 CS_IRSensorData[8];
@@ -20,45 +21,30 @@ int CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
 u8 CS_EnemyState = 0;
 
 void CS_Init() {
-    UP_Timer_EnableIT(1, 5000);//5ms    设置定时器
+    debug_bluetooth_puts("CS init\n");
+    UP_Timer_EnableIT(1, 2000);//5ms    设置定时器
     UP_Timer_SetHadler(1, CS_CheckState);            //定时器中断 擂台检测
-    int i = 0;
-    u32 channel;
-    for (i = 4; i < 8; i++) {
-        switch (CS_IRSensorList[i]) {
-            case 12:
-                channel = EXTI_AD12;
-                break;
-            case 13:
-                channel = EXTI_AD13;
-                break;
-            case 14:
-                channel = EXTI_AD14;
-                break;
-            case 15:
-                channel = EXTI_AD15;
-                break;
-            default:
-                channel = 0;
-        }
-        if (channel != 0) {
-            UP_Exti_EnableIT(channel, EXTI_Trigger_Rising_Falling);
-            UP_Exti_SetHadler(CS_CheckEnemyExti);
-        }
-    }
+    UP_Exti_EnableIT(EXTI_AD12, EXTI_Trigger_Rising_Falling);
+    UP_Exti_EnableIT(EXTI_AD13, EXTI_Trigger_Rising_Falling);
+    UP_Exti_EnableIT(EXTI_AD14, EXTI_Trigger_Rising_Falling);
+    UP_Exti_EnableIT(EXTI_AD15, EXTI_Trigger_Rising_Falling);
+    UP_Exti_SetHadler(CS_CheckEnemyExti);
 }
 
 //使能
 void CS_enable(int enable) {
     if (enable == ENABLE) {
+        debug_bluetooth_puts("cs enable\n");
         CS_Enable = ENABLE;
     } else {
+        debug_bluetooth_puts("cs disable\n");
         CS_Enable = DISABLE;
         CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;
     }
 }
 
-void CS_CheckEnemyExti(u32 channel){
+void CS_CheckEnemyExti(u32 channel) {
+//    debug_bluetooth_puts("exti int\n");
     switch (channel) {
         case EXTI_AD12:
             CS_CheckEnemyExtiFrontLeft();
@@ -115,29 +101,43 @@ void CS_CheckState() {
     if (CS_Enable == DISABLE)
         return;
     int i = 0;
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 8; i++) {
         CS_IRSensorData[i] = UP_ADC_GetIO(CS_IRSensorList[i]);
+        switch (i) {
+            case 4:
+                CS_CheckEnemyExtiFrontLeft();
+                break;
+            case 5:
+                CS_CheckEnemyExtiFrontRight();
+                break;
+            case 6:
+                CS_CheckEnemyExtiBackLeft();
+                break;
+            case 7:
+                CS_CheckEnemyExtiBackRight();
+                break;
+        }
     }
 
     for (i = 0; i < 2; i++) {
         CS_InclinationSensorData[i] = UP_ADC_GetValue(CS_InclinationSensorData[i]);
     }
 
-    if (CS_InclinationSensorData[1] > 2500) {
-        CS_State = STATE_STUCK_FRONT;
-        return;
-    } else if (CS_InclinationSensorData[1] < 2000) {
-        CS_State = STATE_STUCK_BACK;
-        return;
-    }
+//    if (CS_InclinationSensorData[1] > 2400) {
+//        CS_State = STATE_STUCK_FRONT;
+//        return;
+//    } else if (CS_InclinationSensorData[1] < 2000) {
+//        CS_State = STATE_STUCK_BACK;
+//        return;
+//    }
 
-    if (CS_InclinationSensorData[0] > 2500) {
-        CS_State = STATE_STUCK_LEFT;
-        return;
-    } else if (CS_InclinationSensorData[0] < 2000) {
-        CS_State = STATE_STUCK_RIGHT;
-        return;
-    }
+//    if (CS_InclinationSensorData[0] > 2200) {
+//        CS_State = STATE_STUCK_RIGHT;
+//        return;
+//    } else if (CS_InclinationSensorData[0] < 1800) {
+//        CS_State = STATE_STUCK_LEFT;
+//        return;
+//    }
 
     if (CS_IRSensorData[0] == 0 && CS_IRSensorData[1] == 0) {
         CS_State = STATE_UNDER_STAGE_FACE_TO_STAGE;

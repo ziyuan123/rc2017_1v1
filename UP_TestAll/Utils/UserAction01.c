@@ -78,7 +78,7 @@ void UA01_GetOnStage(int direction) {
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
         SM_Move(DIRECTION_BACK, MOTOR_SPEED);   //MOTOR_SPEED速度向后
     }
-    UP_delay_ms(100);
+    UP_delay_ms(400);
     if (direction == DIRECTION_FORWARD) UA01_FrontArmDown();
     else UA01_BackArmDown();
     UP_delay_ms(1000);
