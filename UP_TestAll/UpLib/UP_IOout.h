@@ -1,18 +1,19 @@
 /******************************************************************/
-//	Copyright (C), 2011-2012, ±±¾©²©´´ 
-//  Author   	  	: ³ÂÖĞÔª  
-//  Reviser				: ÇÇäìéª
+//	Copyright (C), 2011-2012, åŒ—äº¬åšåˆ› 
+//  Author   	  	: é™ˆä¸­å…ƒ  
+//  Reviser				: ä¹”æ½‡æ¥ 
 //  Update Date   : 2012/08/01
 //  Version   	  : 1.3          
 //  Description   : Transplant to v3.5 function library
-/******************************************************************/ 
+/******************************************************************/
+#include "STM32Lib/stm32f10x.h"
 
 #ifndef SERVO_L
 #define SERVO_L
-//³£Á¿ºê¶¨Òå
-#define UP_IOout_NUM		6				//IOÊä³ö¶Ë¿ÚÊıÄ¿
+//å¸¸é‡å®å®šä¹‰
+#define UP_IOout_NUM		6				//IOè¾“å‡ºç«¯å£æ•°ç›®
 
-//Êä³öºê¶¨Òå
+//è¾“å‡ºå®å®šä¹‰
 //IOout0~PA14
 #define UP_IOout0_L		(GPIOA->BSRR = GPIO_Pin_14)
 #define UP_IOout0_H		(GPIOA->BRR = GPIO_Pin_14)
@@ -31,16 +32,16 @@
 //IOout5~PD3
 #define UP_IOout5_L		(GPIOD->BSRR = GPIO_Pin_4)
 #define UP_IOout5_H		(GPIOD->BRR = GPIO_Pin_4)		
-/*********************8*ÉèÖÃ·äÃùÆ÷Ïà¹Ø²ÎÊı************/
-#define buzzer_io_H     UP_IOout2_H	   /***Êä³öÂö³å¹Ü½ÅµçÆ½¸ß**/
-#define buzzer_io_L		  UP_IOout2_L	   /***Êä³öÂö³å¹Ü½ÅµçÆ½µÍ**/
-#define buzzer_power_IO_num  3	   /***·äÃùÆ÷¹©µç¹Ü½Å io µÍµçÆ½ ÉèÖÃIO1Îª·äÃùÆ÷¹©µç¹Ü½Å****/
+/*********************8*è®¾ç½®èœ‚é¸£å™¨ç›¸å…³å‚æ•°************/
+#define buzzer_io_H     UP_IOout2_H	   /***è¾“å‡ºè„‰å†²ç®¡è„šç”µå¹³é«˜**/
+#define buzzer_io_L		  UP_IOout2_L	   /***è¾“å‡ºè„‰å†²ç®¡è„šç”µå¹³ä½**/
+#define buzzer_power_IO_num  3	   /***èœ‚é¸£å™¨ä¾›ç”µç®¡è„š io ä½ç”µå¹³ è®¾ç½®IO1ä¸ºèœ‚é¸£å™¨ä¾›ç”µç®¡è„š****/
 extern u8 UP_Buzzer_State;
 extern u8 UP_Buzzer_Period;
 void UP_Set_Beer(u16 ms,u8 Value);
-//Ó²¼ş³õÊ¼»¯
-extern void  UP_IOout_Init(void);																		//¶æ»úÏà¹Ø³õÊ¼»¯
-extern void  UP_IOout_SetIO(u8 Channel, u8 Value);									//ÉèÖÃÄ£Äâ¶æ»ú¶Ë¿ÚIOÊä³öµçÆ½£¬Í¨µÀ0~7£¬Öµ0»ò1
-extern void  UP_IOout_SetALLIO(u8 Value);														//Í¬Ê±ÉèÖÃ8Â·Ä£Äâ¶æ»ú¶Ë¿ÚIOÊä³öµçÆ½£¬Öµ0x00~0xFF
+//ç¡¬ä»¶åˆå§‹åŒ–
+extern void  UP_IOout_Init(void);																		//èˆµæœºç›¸å…³åˆå§‹åŒ–
+extern void  UP_IOout_SetIO(u8 Channel, u8 Value);									//è®¾ç½®æ¨¡æ‹Ÿèˆµæœºç«¯å£IOè¾“å‡ºç”µå¹³ï¼Œé€šé“0~7ï¼Œå€¼0æˆ–1
+extern void  UP_IOout_SetALLIO(u8 Value);														//åŒæ—¶è®¾ç½®8è·¯æ¨¡æ‹Ÿèˆµæœºç«¯å£IOè¾“å‡ºç”µå¹³ï¼Œå€¼0x00~0xFF
 
 #endif

@@ -22,7 +22,7 @@ u8 CS_EnemyState = 0;
 
 void CS_Init() {
     debug_bluetooth_puts("CS init\n");
-    UP_Timer_EnableIT(1, 2000);//5ms    设置定时器
+    UP_Timer_EnableIT(1, 2000);//设置定时器
     UP_Timer_SetHadler(1, CS_CheckState);            //定时器中断 擂台检测
     UP_Exti_EnableIT(EXTI_AD12, EXTI_Trigger_Rising_Falling);
     UP_Exti_EnableIT(EXTI_AD13, EXTI_Trigger_Rising_Falling);
