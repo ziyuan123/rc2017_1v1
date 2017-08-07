@@ -81,15 +81,19 @@ void UA01_GetOnStage(int direction) {
     UP_delay_ms(400);
     if (direction == DIRECTION_FORWARD) UA01_FrontArmDown();
     else UA01_BackArmDown();
-    UP_delay_ms(1000);
+    UP_delay_ms(200);
+
     if (direction == DIRECTION_FORWARD) UA01_BackArmDown();
     else UA01_FrontArmDown();
-    UP_delay_ms(1300);
+    UP_delay_ms(1000);
+
     if (direction == DIRECTION_FORWARD) UA01_FrontArmUp();
     else UA01_BackArmUp();
+    UP_delay_ms(800);
+
     if (direction == DIRECTION_FORWARD) UA01_BackArmUp();
     else UA01_FrontArmUp();
-    UP_delay_ms(400);
+    UP_delay_ms(200);
 }
 
 //找寻擂台

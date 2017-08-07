@@ -123,6 +123,8 @@ void CS_CheckState() {
         CS_InclinationSensorData[i] = UP_ADC_GetValue(CS_InclinationSensorData[i]);
     }
 
+
+/*倾角*/
 //    if (CS_InclinationSensorData[1] > 2400) {
 //        CS_State = STATE_STUCK_FRONT;
 //        return;
