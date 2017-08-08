@@ -1,3 +1,5 @@
 cmake-build-debug/
 cmake-build-release/
 .idea/
+
+UP_TestAll/Utils/UserAction_czy\.c

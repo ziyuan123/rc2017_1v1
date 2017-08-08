@@ -17,10 +17,10 @@
 //12-13 横倾角，竖倾角
 u8 GLOBAL_SENSOR_LIST[14] = {0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 8, 9};
 
-const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3540, 3500, 3400, 3240},
-                                                        {3450, 3420, 3220, 3100},
-                                                        {3460, 3400, 3270, 3000},
-                                                        {3400, 3320, 3170, 2950}};
+const int kG4S_SensorData[4][G4S_SENSOR_DATA_LENGTH] = {{3540 + 60, 3500 + 60, 3400 + 60, 3240 + 60},
+                                                        {3450 + 60, 3420 + 60, 3220 + 60, 3100 + 60},
+                                                        {3460 + 60, 3400 + 60, 3270 + 60, 3000 + 60},
+                                                        {3400 + 60, 3320 + 60, 3170 + 60, 2950 + 60}};
 
 void init() {
     G4S_GrayScaleSensorList[0] = GLOBAL_SENSOR_LIST[0];
@@ -70,7 +70,7 @@ int main(void) {
             under_stage_count = 0;
             G4S_enable(ENABLE);
 
-            UA01_PreAttack();
+            UA01_PreAttack_up();
             if (G4S_danger) {
                 debug_bluetooth_puts("g4s danger\n");
                 UA01_StopAttack();
@@ -85,7 +85,7 @@ int main(void) {
                     debug_bluetooth_puts("cs eb\n");
                     UA01_Attack(DIRECTION_BACK);
                 }
-                UP_delay_ms(5);
+                UP_delay_ms(1);
                 continue;
             }
             switch (CS_State) {
@@ -131,6 +131,7 @@ int main(void) {
                     UA01_PreAction();
                     debug_bluetooth_puts("get on stage\n");
                     G4S_enable(DISABLE);
+                    CS_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_GetOnStage(UA01_FindStage());
                 }
@@ -141,6 +142,7 @@ int main(void) {
                 if (under_stage_count > UNDER_COUNT) {
                     UA01_PreAction();
                     G4S_enable(DISABLE);
+                    CS_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_FrontArmDown();
                     UA01_BackArmDown();
@@ -151,6 +153,7 @@ int main(void) {
                 if (under_stage_count > UNDER_COUNT) {
                     UA01_PreAction();
                     G4S_enable(DISABLE);
+                    CS_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_GetOnStage(DIRECTION_FORWARD);
                 }
@@ -160,6 +163,7 @@ int main(void) {
                 if (under_stage_count > UNDER_COUNT) {
                     UA01_PreAction();
                     G4S_enable(DISABLE);
+                    CS_enable(DISABLE);
                     under_stage_count = 0;
                     UA01_GetOnStage(DIRECTION_BACK);
                 }

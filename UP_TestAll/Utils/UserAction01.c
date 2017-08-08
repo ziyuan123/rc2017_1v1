@@ -69,14 +69,14 @@ void UA01_GetOnStage(int direction) {
         UA01_hand_motor_speed[2] = -MOTOR_SPEED;
         UA01_hand_motor_speed[3] = MOTOR_SPEED;
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);//四电机速度初始化设置
-        SM_Move(DIRECTION_FORWARD, MOTOR_SPEED);    //MOTOR_SPEED速度向前
+        SM_Move(DIRECTION_FORWARD, MOTOR_SPEED+100);    //MOTOR_SPEED速度向前
     } else {
         UA01_hand_motor_speed[0] = -MOTOR_SPEED;
         UA01_hand_motor_speed[1] = MOTOR_SPEED;
         UA01_hand_motor_speed[2] = MOTOR_SPEED;
         UA01_hand_motor_speed[3] = -MOTOR_SPEED;
         UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
-        SM_Move(DIRECTION_BACK, MOTOR_SPEED);   //MOTOR_SPEED速度向后
+        SM_Move(DIRECTION_BACK, MOTOR_SPEED+100);   //MOTOR_SPEED速度向后
     }
     UP_delay_ms(400);
     if (direction == DIRECTION_FORWARD) UA01_FrontArmDown();
@@ -133,10 +133,23 @@ int UA01_FindStage() {
 
 
 //攻击
+void UA01_PreAttack_up() {
+    int i = 0;
+    for (i = 0; i < 4; i++) {
+        UA01_hand_motor_speed[i] = 550;
+    }
+    UP_CDS_SetAngle(UA01_arm_servo_list[0], 581-20, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[1], 428+20, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[2], 385+20, 512);
+    UP_CDS_SetAngle(UA01_arm_servo_list[3], 598-20, 512);
+
+
+
+}
 void UA01_PreAttack() {
     int i = 0;
     for (i = 0; i < 4; i++) {
-        UA01_hand_motor_speed[i] = 0;
+        UA01_hand_motor_speed[i] = 550;
     }
     UP_CDS_SetAngle(UA01_arm_servo_list[0], 581, 512);
     UP_CDS_SetAngle(UA01_arm_servo_list[1], 428, 512);
@@ -167,7 +180,7 @@ void UA01_Attack(int direction) {
 void UA01_StopAttack() {
     int i = 0;
     for (i = 0; i < 4; i++) {
-        UA01_hand_motor_speed[i] = 0;
+        UA01_hand_motor_speed[i] = 550;
     }
     UP_CDS_Set4MotoSpeed(UA01_hand_motor_list, UA01_hand_motor_speed);
 }
