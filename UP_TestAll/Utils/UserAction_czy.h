@@ -23,6 +23,8 @@ int UA01_FindStage1();
 
 void UA01_PreAttack1();
 
+void UA01_PreAttack1_up();
+
 void UA01_Attack1(int direction);
 
 void UA01_StopAttack1();

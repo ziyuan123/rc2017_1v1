@@ -125,6 +125,8 @@ int main(void) {
             continue;
         }
 
+
+        
         debug_bluetooth_puts("Under stage\n");
         G4S_enable(DISABLE);
         SM_Move(DIRECTION_FORWARD, 0);
